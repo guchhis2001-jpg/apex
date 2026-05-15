@@ -7,7 +7,12 @@
       "Bash(/usr/bin/node --version)",
       "Bash(/usr/bin/npm --version)",
       "mcp__Claude_Preview__preview_start",
-      "mcp__Claude_in_Chrome__tabs_context_mcp"
+      "mcp__Claude_in_Chrome__tabs_context_mcp",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5173)",
+      "WebFetch(domain:apex-psa06h7bu-touchwood-team-s-projects.vercel.app)",
+      "Bash(xargs grep -l 'hydrateStart\\\\|createRouter\\\\|window\\\\.$_TSR')",
+      "Bash(python3 -m json.tool)",
+      "Bash(npm run *)"
     ]
   }
 }

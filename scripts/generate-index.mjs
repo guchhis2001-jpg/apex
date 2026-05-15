@@ -40,6 +40,10 @@ const preloadTags = preloadJs
   .map((f) => `    <link rel="modulepreload" crossorigin href="/assets/${f}" />`)
   .join("\n");
 
+// Inject minimal $_TSR bootstrap so TanStack Start skips its server-hydration
+// requirement and falls back to SPA/client-side routing mode instead of throwing.
+const tsrBootstrap = `<script>window.$_TSR={router:{matches:[],lastMatchId:void 0,manifest:void 0,dehydratedData:void 0},buffer:[],h:function(){}}</script>`;
+
 const html = `<!DOCTYPE html>
 <html lang="en">
   <head>
@@ -49,6 +53,7 @@ const html = `<!DOCTYPE html>
     <meta name="description" content="Apex is a premium sports marketing agency: social, PR, paid ads, content &amp; sponsorship sales for leagues and teams." />
     ${cssFile ? `<link rel="stylesheet" crossorigin href="/assets/${cssFile}" />` : ""}
 ${preloadTags}
+    ${tsrBootstrap}
     <script type="module" crossorigin src="/assets/${entryJs}"></script>
   </head>
   <body>
