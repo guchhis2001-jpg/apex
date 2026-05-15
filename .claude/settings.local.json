@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/amazer/.nvm/**)",
+      "Read(//Users/amazer/.bun/**)",
+      "Bash(npm install *)",
+      "Bash(/usr/bin/node --version)",
+      "Bash(/usr/bin/npm --version)",
+      "mcp__Claude_Preview__preview_start",
+      "mcp__Claude_in_Chrome__tabs_context_mcp"
+    ]
+  }
+}

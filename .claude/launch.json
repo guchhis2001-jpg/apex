@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "dev",
+      "runtimeExecutable": "/bin/sh",
+      "runtimeArgs": ["/Users/amazer/Desktop/website/.claude/start-dev.sh"],
+      "port": 8080,
+      "autoPort": false
+    }
+  ]
+}
