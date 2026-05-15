@@ -174,7 +174,7 @@ function ApexHome() {
       </header>
 
       {/* HERO */}
-      <section id="top" className="relative min-h-screen flex items-center pt-16">
+      <section id="top" className="relative min-h-screen flex flex-col justify-center pt-28 pb-12">
         <div className="absolute inset-0 z-0">
           <img
             src={heroStadium}
@@ -187,17 +187,17 @@ function ApexHome() {
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
         </div>
 
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="max-w-4xl animate-fade-up">
+        <div className="container mx-auto px-6 relative z-10 flex-1 flex items-center">
+          <div className="max-w-4xl animate-fade-up w-full">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-card text-xs uppercase tracking-[0.25em] text-gold mb-8">
               <span className="w-2 h-2 rounded-full bg-gold animate-pulse" />
               Sports Marketing Agency
             </div>
-            <h1 className="font-display text-6xl md:text-8xl lg:text-9xl leading-[0.9] mb-6">
+            <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl leading-[0.95] mb-6">
               THE AGENCY <br />
               BEHIND THE <span className="text-gradient-gold">GAME</span>.
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-10 leading-relaxed">
+            <p className="text-base md:text-lg lg:text-xl text-muted-foreground max-w-2xl mb-10 leading-relaxed">
               Full-service sports marketing — social, PR, ads, content and
               sponsorship sales — for leagues and teams that want to win off
               the field too.
@@ -213,17 +213,15 @@ function ApexHome() {
           </div>
         </div>
 
-        {/* floating stat strip */}
-        <div className="absolute bottom-6 left-0 right-0 z-10">
-          <div className="container mx-auto px-6">
-            <div className="glass-card rounded-2xl px-6 py-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-              {stats.map((s) => (
-                <div key={s.label}>
-                  <div className="font-display text-2xl md:text-3xl text-gradient-gold">{s.value}</div>
-                  <div className="text-[10px] md:text-xs uppercase tracking-widest text-muted-foreground mt-1">{s.label}</div>
-                </div>
-              ))}
-            </div>
+        {/* stat strip (in-flow, sits below hero content) */}
+        <div className="relative z-10 container mx-auto px-6 mt-12">
+          <div className="glass-card rounded-2xl px-6 py-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+            {stats.map((s) => (
+              <div key={s.label}>
+                <div className="font-display text-2xl md:text-3xl text-gradient-gold">{s.value}</div>
+                <div className="text-[10px] md:text-xs uppercase tracking-widest text-muted-foreground mt-1">{s.label}</div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -302,7 +300,7 @@ function ApexHome() {
             {/* Coming soon cards — wrapped so both stay in the third column */}
             <div className="flex flex-col gap-6">
               {["Cricket Franchise", "Football Club"].map((label) => (
-                <div key={label} className="glass-card rounded-3xl p-8 flex flex-col items-center justify-center text-center flex-1 relative overflow-hidden" style={{ minHeight: "calc(50% - 12px)" }}>
+                <div key={label} className="glass-card rounded-3xl p-8 flex flex-col items-center justify-center text-center flex-1 min-h-[200px] relative overflow-hidden">
                   <div className="absolute inset-0 shimmer opacity-30" />
                   <div className="relative">
                     <div className="w-16 h-16 mx-auto rounded-full border-2 border-dashed border-gold/40 flex items-center justify-center mb-4">
@@ -367,7 +365,7 @@ function ApexHome() {
           </div>
 
           {/* Tier cards */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 pt-4">
             {packages.map((p) => (
               <div
                 key={p.tier}
