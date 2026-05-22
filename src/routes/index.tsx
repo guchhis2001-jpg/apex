@@ -201,6 +201,19 @@ const partners = [
   },
 ];
 
+const clients = [
+  { name: "EaseMyTrip", industry: "Travel & Lifestyle" },
+  { name: "Indian Pesticides Limited", industry: "Agrochemicals" },
+  { name: "Cressanda Railway Solutions", industry: "Infrastructure" },
+  { name: "Toyam Sports Limited", industry: "Sports & Media" },
+  { name: "Qorum Watches", industry: "Luxury Watches" },
+  { name: "Anjali Gold", industry: "Jewellery" },
+  { name: "Booster Water", industry: "FMCG / Beverages" },
+  { name: "Panorama Studios", industry: "Film Production" },
+  { name: "Soham Rockstar Entertainment", industry: "Entertainment" },
+  { name: "Platinum Music", industry: "Music" },
+];
+
 const stats = [
   { value: "$15.46M", label: "Sponsorship Value Managed" },
   { value: "5M+", label: "Global Audience Reach" },
@@ -444,6 +457,56 @@ function ApexHome() {
                     i === partnerIndex ? "w-8 bg-gold" : "w-2 bg-border hover:bg-muted-foreground"
                   }`}
                 />
+              ))}
+            </div>
+          </div>
+
+          {/* BRAND PORTFOLIO */}
+          <div className="mt-28">
+            <div className="relative overflow-hidden border-y border-border/60 py-6 mb-16">
+              <div className="pointer-events-none absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-background to-transparent z-10" />
+              <div className="pointer-events-none absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-background to-transparent z-10" />
+              <div className="flex animate-marquee whitespace-nowrap will-change-transform">
+                {[...clients, ...clients].map((c, i) => (
+                  <div key={`${c.name}-${i}`} className="flex items-center shrink-0">
+                    <span className="font-display text-2xl md:text-3xl tracking-wider text-muted-foreground/60 px-8">
+                      {c.name.toUpperCase()}
+                    </span>
+                    <span className="text-gold/40 text-2xl md:text-3xl">•</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="mb-12">
+              <div className="text-gold text-xs uppercase tracking-[0.3em] mb-4">Client Portfolio</div>
+              <h2 className="font-display text-5xl md:text-6xl leading-none">
+                BRANDS WE'VE <span className="text-gradient-gold">BUILT WITH</span>.
+              </h2>
+              <p className="text-muted-foreground mt-5 max-w-2xl leading-relaxed">
+                Ten companies across travel, sports, entertainment, luxury, infrastructure, and FMCG — proof that the playbook translates across categories.
+              </p>
+            </div>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {clients.map((client) => (
+                <div
+                  key={client.name}
+                  className="glass-card rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:border-gold/40 group cursor-default"
+                >
+                  <div className="flex items-start justify-between mb-3 gap-2">
+                    <span className="inline-block px-2.5 py-0.5 rounded-full bg-gold/10 text-gold text-[10px] uppercase tracking-widest leading-relaxed">
+                      {client.industry}
+                    </span>
+                    <ArrowRight
+                      size={14}
+                      className="text-muted-foreground/40 group-hover:text-gold group-hover:translate-x-1 transition-all shrink-0 mt-1"
+                    />
+                  </div>
+                  <div className="font-display text-xl md:text-2xl tracking-wide leading-tight">
+                    {client.name.toUpperCase()}
+                  </div>
+                </div>
               ))}
             </div>
           </div>
