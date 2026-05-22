@@ -1,11 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Megaphone,
   Newspaper,
   Target,
   Handshake,
-  Trophy,
   Users,
   BarChart3,
   Globe2,
@@ -17,7 +16,6 @@ import {
   Phone,
   CheckCircle2,
   Menu,
-  Lock,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -38,6 +36,9 @@ import { EnquireDialog } from "@/components/apex/EnquireDialog";
 import heroStadium from "@/assets/hero-stadium.jpg";
 import sponsorshipBg from "@/assets/sponsorship-bg.jpg";
 import lionsLogo from "@/assets/lions-logo.png";
+import wtlLogo from "@/assets/wtl-logo.png";
+import wplLogo from "@/assets/wpl-logo.png";
+import sglLogo from "@/assets/sgl-logo.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -148,6 +149,58 @@ const process = [
   },
 ];
 
+const partners = [
+  {
+    logo: lionsLogo,
+    name: "Game Changers Lions",
+    badge: "Official Exclusive Sponsor Partner",
+    description: (
+      <>
+        Competing in the World Padel League — India's fastest-growing padel
+        franchise, broadcast on Sony Sports & FanCode, with a total sponsorship
+        value of <span className="text-gold font-semibold">$15.46M</span>.
+      </>
+    ),
+    tags: ["World Padel League", "Sony Sports", "FanCode", "Mumbai 2026"],
+  },
+  {
+    logo: wtlLogo,
+    name: "World Tennis League",
+    badge: "League Partner",
+    description: (
+      <>
+        Official league partner — broadcast details and activation scope to be
+        confirmed. Replace this copy with the real partnership terms.
+      </>
+    ),
+    tags: ["WTL", "Tennis", "International"],
+  },
+  {
+    logo: wplLogo,
+    name: "World Padel League",
+    badge: "League Partner",
+    description: (
+      <>
+        Official league partner — broadcast details and activation scope to be
+        confirmed. Replace this copy with the real partnership terms.
+      </>
+    ),
+    tags: ["WPL", "Padel", "India"],
+  },
+  {
+    logo: sglLogo,
+    name: "Star Golf League",
+    badge: "League Partner",
+    description: (
+      <>
+        Official league partner — broadcast details and activation scope to be
+        confirmed. Replace this copy with the real partnership terms.
+      </>
+    ),
+    tags: ["SGL", "Golf", "Premium"],
+  },
+];
+
 const stats = [
   { value: "$15.46M", label: "Sponsorship Value Managed" },
   { value: "5M+", label: "Global Audience Reach" },
@@ -166,6 +219,14 @@ const navLinks = [
 function ApexHome() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedPkg, setSelectedPkg] = useState<string | undefined>();
+  const [partnerIndex, setPartnerIndex] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setPartnerIndex((i) => (i + 1) % partners.length);
+    }, 5000);
+    return () => clearInterval(id);
+  }, []);
 
   const openEnquire = (pkg?: string) => {
     setSelectedPkg(pkg);
@@ -340,28 +401,31 @@ function ApexHome() {
             </h2>
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-6">
-            {/* Flagship */}
-            <div className="lg:col-span-2 glass-card rounded-3xl p-8 md:p-10 relative overflow-hidden gold-border">
+          <div className="relative">
+            <div key={partnerIndex} className="glass-card rounded-3xl p-8 md:p-10 relative overflow-hidden gold-border animate-fade-up">
               <div className="absolute top-0 right-0 w-64 h-64 bg-gold/10 rounded-full blur-3xl" />
               <div className="relative flex flex-col md:flex-row gap-8 items-center">
                 <div className="shrink-0 w-40 h-40 rounded-2xl bg-navy-deep/50 flex items-center justify-center p-4">
-                  <img src={lionsLogo} alt="Game Changers Lions" width={512} height={512} className="w-full h-full object-contain" />
+                  <img
+                    src={partners[partnerIndex].logo}
+                    alt={partners[partnerIndex].name}
+                    width={512}
+                    height={512}
+                    className="w-full h-full object-contain"
+                  />
                 </div>
                 <div className="flex-1 text-center md:text-left">
                   <div className="inline-block px-3 py-1 rounded-full bg-gold/15 text-gold text-[10px] uppercase tracking-widest mb-3">
-                    Official Exclusive Sponsor Partner
+                    {partners[partnerIndex].badge}
                   </div>
                   <h3 className="font-display text-3xl md:text-4xl mb-3 tracking-wide">
-                    GAME CHANGERS LIONS
+                    {partners[partnerIndex].name.toUpperCase()}
                   </h3>
                   <p className="text-muted-foreground leading-relaxed mb-4">
-                    Competing in the World Padel League — India's fastest-growing
-                    padel franchise, broadcast on Sony Sports & FanCode, with a
-                    total sponsorship value of <span className="text-gold font-semibold">$15.46M</span>.
+                    {partners[partnerIndex].description}
                   </p>
-                  <div className="flex flex-wrap gap-2">
-                    {["World Padel League", "Sony Sports", "FanCode", "Mumbai 2026"].map((t) => (
+                  <div className="flex flex-wrap gap-2 justify-center md:justify-start">
+                    {partners[partnerIndex].tags.map((t) => (
                       <span key={t} className="text-xs px-3 py-1 rounded-full border border-border text-muted-foreground">{t}</span>
                     ))}
                   </div>
@@ -369,26 +433,18 @@ function ApexHome() {
               </div>
             </div>
 
-            {/* Confidential slots */}
-            <div className="flex flex-col gap-6">
-              <div className="glass-card rounded-3xl p-8 flex flex-col items-center justify-center text-center flex-1 min-h-[200px]">
-                <div className="w-12 h-12 mx-auto rounded-full border border-border flex items-center justify-center mb-4">
-                  <Lock className="text-muted-foreground" size={16} />
-                </div>
-                <div className="font-semibold text-sm mb-1">Confidential</div>
-                <div className="text-xs text-muted-foreground leading-relaxed max-w-[160px]">
-                  Active client under NDA — announcement pending
-                </div>
-              </div>
-              <div className="glass-card rounded-3xl p-8 flex flex-col items-center justify-center text-center flex-1 min-h-[200px]">
-                <div className="w-12 h-12 mx-auto rounded-full border border-border flex items-center justify-center mb-4">
-                  <Trophy className="text-muted-foreground" size={16} />
-                </div>
-                <div className="font-semibold text-sm mb-1">Roster Expanding</div>
-                <div className="text-xs text-muted-foreground leading-relaxed max-w-[160px]">
-                  New partnerships to be announced Q3 2026
-                </div>
-              </div>
+            <div className="flex items-center justify-center gap-2 mt-6">
+              {partners.map((p, i) => (
+                <button
+                  key={p.name}
+                  type="button"
+                  onClick={() => setPartnerIndex(i)}
+                  aria-label={`Show ${p.name}`}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    i === partnerIndex ? "w-8 bg-gold" : "w-2 bg-border hover:bg-muted-foreground"
+                  }`}
+                />
+              ))}
             </div>
           </div>
         </div>

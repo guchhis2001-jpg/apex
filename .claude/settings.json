@@ -24,7 +24,8 @@
       "Bash(rm /Users/amazer/Desktop/apex/.git/index.lock && git -C /Users/amazer/Desktop/apex reset --hard origin/main 2>&1 && git -C /Users/amazer/Desktop/apex log --oneline -5 2>&1)",
       "Bash(git -C /Users/amazer/Desktop/apex diff --stat HEAD)",
       "Bash(git -C /Users/amazer/Desktop/apex status)",
-      "Bash(git -C /Users/amazer/Desktop/apex log --oneline -3)"
+      "Bash(git -C /Users/amazer/Desktop/apex log --oneline -3)",
+      "Bash(npx vite *)"
     ],
     "additionalDirectories": [
       "/Users/amazer/Desktop/apex/.git"
