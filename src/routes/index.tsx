@@ -16,6 +16,8 @@ import {
   Mail,
   Phone,
   CheckCircle2,
+  Menu,
+  Lock,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -29,6 +31,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
 import { EnquireDialog } from "@/components/apex/EnquireDialog";
@@ -127,11 +130,22 @@ const packages = [
   },
 ];
 
-const whyApex = [
-  { icon: Users, title: "Premium Sports Audiences", desc: "Direct access to engaged, high-spending fans across India and beyond." },
-  { icon: Trophy, title: "End-to-End Execution", desc: "From strategy and creative to media buying and reporting — one team." },
-  { icon: Handshake, title: "Exclusive Partnerships", desc: "We hold rights with leagues and franchises others can't reach." },
-  { icon: BarChart3, title: "Measurable ROI", desc: "Every campaign is tracked, optimised and reported with full transparency." },
+const process = [
+  {
+    step: "01",
+    title: "Audit & Discovery",
+    desc: "We assess your brand, audience, and competitive landscape to identify where the biggest commercial opportunity sits.",
+  },
+  {
+    step: "02",
+    title: "Strategy & Partnerships",
+    desc: "We build a bespoke go-to-market plan — matching your property with the right sponsors, media partners, and campaigns.",
+  },
+  {
+    step: "03",
+    title: "Execute & Report",
+    desc: "Our in-house team runs every activation end-to-end, with full performance reporting and optimisation throughout.",
+  },
 ];
 
 const stats = [
@@ -139,6 +153,14 @@ const stats = [
   { value: "5M+", label: "Global Audience Reach" },
   { value: "36", label: "World-Class Athletes" },
   { value: "Sony + FanCode", label: "Broadcast Partners" },
+];
+
+const navLinks = [
+  { href: "#services", label: "Services" },
+  { href: "#clients", label: "Clients" },
+  { href: "#sponsorship", label: "Sponsorships" },
+  { href: "#why", label: "How We Work" },
+  { href: "#contact", label: "Contact" },
 ];
 
 function ApexHome() {
@@ -160,16 +182,46 @@ function ApexHome() {
           <a href="#top" className="font-display text-2xl tracking-widest">
             <span className="text-gradient-gold">APEX</span>
           </a>
+
+          {/* Desktop links */}
           <div className="hidden md:flex items-center gap-8 text-sm font-medium text-muted-foreground">
-            <a href="#services" className="hover:text-gold transition">Services</a>
-            <a href="#clients" className="hover:text-gold transition">Clients</a>
-            <a href="#sponsorship" className="hover:text-gold transition">Sponsorships</a>
-            <a href="#why" className="hover:text-gold transition">Why Apex</a>
-            <a href="#contact" className="hover:text-gold transition">Contact</a>
+            {navLinks.map((link) => (
+              <a key={link.href} href={link.href} className="hover:text-gold transition">
+                {link.label}
+              </a>
+            ))}
           </div>
-          <Button variant="hero" size="sm" asChild>
-            <a href="#contact">Get In Touch</a>
-          </Button>
+
+          <div className="flex items-center gap-3">
+            <Button variant="hero" size="sm" className="hidden md:inline-flex" asChild>
+              <a href="#contact">Get In Touch</a>
+            </Button>
+
+            {/* Mobile hamburger */}
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="md:hidden">
+                  <Menu size={20} />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-64 pt-12">
+                <nav className="flex flex-col gap-6">
+                  {navLinks.map((link) => (
+                    <a
+                      key={link.href}
+                      href={link.href}
+                      className="text-base font-medium hover:text-gold transition"
+                    >
+                      {link.label}
+                    </a>
+                  ))}
+                  <Button variant="hero" asChild className="mt-2">
+                    <a href="#contact">Get In Touch</a>
+                  </Button>
+                </nav>
+              </SheetContent>
+            </Sheet>
+          </div>
         </nav>
       </header>
 
@@ -181,7 +233,7 @@ function ApexHome() {
             alt="Floodlit padel stadium"
             width={1920}
             height={1080}
-            className="w-full h-full object-cover opacity-40"
+            className="w-full h-full object-cover opacity-30"
           />
           <div className="absolute inset-0 bg-gradient-hero" />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
@@ -189,31 +241,51 @@ function ApexHome() {
 
         <div className="container mx-auto px-6 relative z-10 flex-1 flex items-center">
           <div className="max-w-4xl animate-fade-up w-full">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-card text-xs uppercase tracking-[0.25em] text-gold mb-8">
-              <span className="w-2 h-2 rounded-full bg-gold animate-pulse" />
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-gold/30 text-xs uppercase tracking-[0.25em] text-gold mb-8">
               Sports Marketing Agency
             </div>
-            <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl leading-[0.95] mb-6">
+            <h1 className="font-display text-5xl sm:text-6xl md:text-7xl leading-[0.95] mb-6">
               THE AGENCY <br />
               BEHIND THE <span className="text-gradient-gold">GAME</span>.
             </h1>
-            <p className="text-base md:text-lg lg:text-xl text-muted-foreground max-w-2xl mb-10 leading-relaxed">
+            <p className="text-base md:text-lg text-muted-foreground max-w-2xl mb-10 leading-relaxed">
               Full-service sports marketing — social, PR, ads, content and
               sponsorship sales — for leagues and teams that want to win off
               the field too.
             </p>
-            <div className="flex flex-wrap gap-4">
-              <Button variant="hero" size="xl" asChild>
-                <a href="#contact">Work With Us <ArrowRight /></a>
-              </Button>
-              <Button variant="outlineGold" size="xl" asChild>
-                <a href="#sponsorship">Explore Sponsorships</a>
-              </Button>
+
+            <div className="space-y-6">
+              <div className="flex flex-wrap gap-4">
+                <Button variant="hero" size="xl" asChild>
+                  <a href="#contact">Work With Us <ArrowRight /></a>
+                </Button>
+                <Button variant="outlineGold" size="xl" asChild>
+                  <a href="#sponsorship">Explore Sponsorships</a>
+                </Button>
+              </div>
+
+              {/* Audience split */}
+              <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
+                <span>I am a</span>
+                <a
+                  href="#sponsorship"
+                  className="flex items-center gap-1 text-foreground hover:text-gold transition font-medium border-b border-border hover:border-gold pb-0.5"
+                >
+                  Brand / Sponsor <ArrowRight size={13} />
+                </a>
+                <span className="text-border">·</span>
+                <a
+                  href="#services"
+                  className="flex items-center gap-1 text-foreground hover:text-gold transition font-medium border-b border-border hover:border-gold pb-0.5"
+                >
+                  Team / League <ArrowRight size={13} />
+                </a>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* stat strip (in-flow, sits below hero content) */}
+        {/* Stat strip */}
         <div className="relative z-10 container mx-auto px-6 mt-12">
           <div className="glass-card rounded-2xl px-6 py-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
             {stats.map((s) => (
@@ -231,7 +303,7 @@ function ApexHome() {
         <div className="container mx-auto px-6">
           <div className="max-w-2xl mb-16">
             <div className="text-gold text-xs uppercase tracking-[0.3em] mb-4">What We Do</div>
-            <h2 className="font-display text-5xl md:text-7xl leading-none mb-4">
+            <h2 className="font-display text-5xl md:text-6xl leading-none mb-4">
               MARKETING THAT <span className="text-gradient-gold">SCORES</span>.
             </h2>
             <p className="text-muted-foreground text-lg">
@@ -244,10 +316,10 @@ function ApexHome() {
             {services.map((s, i) => (
               <div
                 key={s.title}
-                className="glass-card rounded-2xl p-8 group hover:-translate-y-1 transition-all duration-300 hover:shadow-gold"
+                className="glass-card rounded-2xl p-8 group hover:-translate-y-1 transition-all duration-300 hover:border-gold/40"
                 style={{ animationDelay: `${i * 80}ms` }}
               >
-                <div className="w-14 h-14 rounded-xl bg-gradient-gold flex items-center justify-center mb-6 group-hover:rotate-6 transition-transform">
+                <div className="w-14 h-14 rounded-xl bg-gradient-gold flex items-center justify-center mb-6">
                   <s.icon className="text-gold-foreground" size={26} />
                 </div>
                 <h3 className="font-display text-2xl tracking-wide mb-3">{s.title.toUpperCase()}</h3>
@@ -261,9 +333,9 @@ function ApexHome() {
       {/* CLIENTS */}
       <section id="clients" className="py-28 relative">
         <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
+          <div className="mb-16">
             <div className="text-gold text-xs uppercase tracking-[0.3em] mb-4">Our Roster</div>
-            <h2 className="font-display text-5xl md:text-7xl leading-none">
+            <h2 className="font-display text-5xl md:text-6xl leading-none">
               TRUSTED BY LEAGUES <br /> & <span className="text-gradient-gold">TEAMS</span>
             </h2>
           </div>
@@ -273,7 +345,7 @@ function ApexHome() {
             <div className="lg:col-span-2 glass-card rounded-3xl p-8 md:p-10 relative overflow-hidden gold-border">
               <div className="absolute top-0 right-0 w-64 h-64 bg-gold/10 rounded-full blur-3xl" />
               <div className="relative flex flex-col md:flex-row gap-8 items-center">
-                <div className="shrink-0 w-40 h-40 rounded-2xl bg-navy-deep/50 flex items-center justify-center p-4 animate-float">
+                <div className="shrink-0 w-40 h-40 rounded-2xl bg-navy-deep/50 flex items-center justify-center p-4">
                   <img src={lionsLogo} alt="Game Changers Lions" width={512} height={512} className="w-full h-full object-contain" />
                 </div>
                 <div className="flex-1 text-center md:text-left">
@@ -297,22 +369,26 @@ function ApexHome() {
               </div>
             </div>
 
-            {/* Coming soon cards — wrapped so both stay in the third column */}
+            {/* Confidential slots */}
             <div className="flex flex-col gap-6">
-              {["Cricket Franchise", "Football Club"].map((label) => (
-                <div key={label} className="glass-card rounded-3xl p-8 flex flex-col items-center justify-center text-center flex-1 min-h-[200px] relative overflow-hidden">
-                  <div className="absolute inset-0 shimmer opacity-30" />
-                  <div className="relative">
-                    <div className="w-16 h-16 mx-auto rounded-full border-2 border-dashed border-gold/40 flex items-center justify-center mb-4">
-                      <Trophy className="text-gold/60" />
-                    </div>
-                    <div className="font-display text-2xl tracking-wide">{label.toUpperCase()}</div>
-                    <div className="text-xs uppercase tracking-[0.25em] text-muted-foreground mt-2">
-                      Coming Soon
-                    </div>
-                  </div>
+              <div className="glass-card rounded-3xl p-8 flex flex-col items-center justify-center text-center flex-1 min-h-[200px]">
+                <div className="w-12 h-12 mx-auto rounded-full border border-border flex items-center justify-center mb-4">
+                  <Lock className="text-muted-foreground" size={16} />
                 </div>
-              ))}
+                <div className="font-semibold text-sm mb-1">Confidential</div>
+                <div className="text-xs text-muted-foreground leading-relaxed max-w-[160px]">
+                  Active client under NDA — announcement pending
+                </div>
+              </div>
+              <div className="glass-card rounded-3xl p-8 flex flex-col items-center justify-center text-center flex-1 min-h-[200px]">
+                <div className="w-12 h-12 mx-auto rounded-full border border-border flex items-center justify-center mb-4">
+                  <Trophy className="text-muted-foreground" size={16} />
+                </div>
+                <div className="font-semibold text-sm mb-1">Roster Expanding</div>
+                <div className="text-xs text-muted-foreground leading-relaxed max-w-[160px]">
+                  New partnerships to be announced Q3 2026
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -326,19 +402,19 @@ function ApexHome() {
         </div>
 
         <div className="container mx-auto px-6 relative z-10">
-          <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="mb-16">
             <div className="text-gold text-xs uppercase tracking-[0.3em] mb-4">Sponsorship Marketplace</div>
-            <h2 className="font-display text-5xl md:text-7xl leading-none mb-6">
+            <h2 className="font-display text-5xl md:text-6xl leading-none mb-4">
               OWN A PIECE <br /> OF THE <span className="text-gradient-gold">GAME</span>.
             </h2>
-            <p className="text-muted-foreground text-lg">
+            <p className="text-muted-foreground text-lg max-w-2xl">
               We represent top leagues and teams to connect your brand with
               premium sports audiences.
             </p>
           </div>
 
           {/* Featured listing */}
-          <div className="glass-card rounded-3xl p-8 md:p-12 mb-10 gold-border">
+          <div className="glass-card rounded-3xl p-8 md:p-10 mb-10 gold-border">
             <div className="flex flex-col lg:flex-row gap-8 items-start">
               <div className="flex-1">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold text-gold-foreground text-[10px] uppercase tracking-widest font-bold mb-4">
@@ -364,80 +440,78 @@ function ApexHome() {
             </div>
           </div>
 
-          {/* Tier cards */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 pt-4">
+          {/* Sponsorship tiers — horizontal rows */}
+          <div className="space-y-3">
             {packages.map((p) => (
               <div
                 key={p.tier}
-                className={`glass-card rounded-2xl p-6 flex flex-col relative transition-all duration-300 hover:-translate-y-2 ${
-                  p.highlight ? "gold-border shadow-gold ring-1 ring-gold/40" : ""
+                className={`glass-card rounded-2xl px-6 py-5 flex flex-col sm:flex-row sm:items-center gap-4 transition-all duration-200 hover:border-gold/40 ${
+                  p.highlight ? "gold-border" : ""
                 }`}
               >
-                {p.highlight && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-gold text-gold-foreground text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">
-                    Most Premium
+                {/* Badge + name */}
+                <div className="flex items-center gap-4 sm:w-52 shrink-0">
+                  <span className="text-3xl">{p.badge}</span>
+                  <div>
+                    <div className="font-display text-lg tracking-wide leading-tight">{p.tier.toUpperCase()}</div>
+                    {p.note && <div className="text-[10px] text-gold/80 uppercase tracking-widest mt-0.5">{p.note}</div>}
                   </div>
-                )}
-                <div className="text-4xl mb-3">{p.badge}</div>
-                <div className="font-display text-2xl tracking-wide mb-1">{p.tier.toUpperCase()}</div>
-                <div className="text-3xl font-bold text-gradient-gold mb-1">{p.price}</div>
-                {p.note && <div className="text-xs text-gold/80 uppercase tracking-widest mb-3">{p.note}</div>}
-                <ul className="space-y-2 my-5 flex-1">
+                </div>
+
+                <div className="hidden sm:block w-px self-stretch bg-border shrink-0" />
+
+                {/* Price */}
+                <div className="sm:w-32 shrink-0">
+                  <div className="text-xl font-bold text-gradient-gold">{p.price}</div>
+                </div>
+
+                <div className="hidden sm:block w-px self-stretch bg-border shrink-0" />
+
+                {/* Perks */}
+                <div className="flex-1 hidden md:flex flex-wrap gap-x-5 gap-y-1.5">
                   {p.perks.map((perk) => (
-                    <li key={perk} className="flex items-start gap-2 text-sm text-muted-foreground">
-                      <CheckCircle2 size={16} className="text-gold mt-0.5 shrink-0" />
-                      <span>{perk}</span>
-                    </li>
+                    <span key={perk} className="text-xs text-muted-foreground flex items-center gap-1.5">
+                      <CheckCircle2 size={12} className="text-gold shrink-0" />
+                      {perk}
+                    </span>
                   ))}
-                </ul>
-                <Button
-                  variant={p.highlight ? "hero" : "outlineGold"}
-                  className="w-full"
-                  onClick={() => openEnquire(`${p.tier} (${p.price})`)}
-                >
-                  Enquire Now
-                </Button>
+                </div>
+
+                {/* CTA */}
+                <div className="shrink-0">
+                  <Button
+                    variant={p.highlight ? "hero" : "outlineGold"}
+                    size="sm"
+                    className="w-full sm:w-auto"
+                    onClick={() => openEnquire(`${p.tier} (${p.price})`)}
+                  >
+                    Enquire <ArrowRight size={14} />
+                  </Button>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* WHY APEX */}
+      {/* HOW WE WORK */}
       <section id="why" className="py-28 relative">
         <div className="container mx-auto px-6">
-          <div className="text-center mb-16 max-w-2xl mx-auto">
-            <div className="text-gold text-xs uppercase tracking-[0.3em] mb-4">The Apex Edge</div>
-            <h2 className="font-display text-5xl md:text-7xl leading-none">
-              WHY BRANDS & TEAMS <br /> CHOOSE <span className="text-gradient-gold">APEX</span>
+          <div className="mb-16">
+            <div className="text-gold text-xs uppercase tracking-[0.3em] mb-4">How We Work</div>
+            <h2 className="font-display text-5xl md:text-6xl leading-none">
+              FROM BRIEF TO <span className="text-gradient-gold">RESULTS</span>.
             </h2>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {whyApex.map((w) => (
-              <div key={w.title} className="text-center p-6">
-                <div className="w-16 h-16 mx-auto rounded-2xl glass-card gold-border flex items-center justify-center mb-5">
-                  <w.icon className="text-gold" size={28} />
-                </div>
-                <h3 className="font-display text-xl tracking-wide mb-2">{w.title.toUpperCase()}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{w.desc}</p>
+
+          <div className="grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-border">
+            {process.map((p, i) => (
+              <div key={p.step} className={`py-8 md:py-0 ${i === 0 ? "md:pr-12" : i === 1 ? "md:px-12" : "md:pl-12"}`}>
+                <div className="font-display text-7xl text-gold/15 leading-none mb-6 select-none">{p.step}</div>
+                <h3 className="font-display text-2xl tracking-wide mb-3">{p.title.toUpperCase()}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* STATS BAR */}
-      <section className="py-20 relative">
-        <div className="container mx-auto px-6">
-          <div className="glass-card rounded-3xl gold-border py-12 px-6">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
-              {stats.map((s) => (
-                <div key={s.label}>
-                  <div className="font-display text-4xl md:text-6xl text-gradient-gold mb-2">{s.value}</div>
-                  <div className="text-xs uppercase tracking-[0.25em] text-muted-foreground">{s.label}</div>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </section>
@@ -448,7 +522,7 @@ function ApexHome() {
           <div className="grid lg:grid-cols-2 gap-12 lg:items-center">
             <div>
               <div className="text-gold text-xs uppercase tracking-[0.3em] mb-4">Contact</div>
-              <h2 className="font-display text-5xl md:text-7xl leading-none mb-6">
+              <h2 className="font-display text-5xl md:text-6xl leading-none mb-6">
                 LET'S <span className="text-gradient-gold">TALK</span>.
               </h2>
               <p className="text-muted-foreground text-lg mb-10 max-w-md">
@@ -466,7 +540,7 @@ function ApexHome() {
                     <div className="font-medium">connect@apex-marcom.com</div>
                   </div>
                 </a>
-                <a href="tel:+971504174551" className="flex items-center gap-4 group">
+                <a href="tel:+919810190305" className="flex items-center gap-4 group">
                   <div className="w-12 h-12 rounded-xl glass-card gold-border flex items-center justify-center group-hover:bg-gold group-hover:text-gold-foreground transition">
                     <Phone size={20} />
                   </div>

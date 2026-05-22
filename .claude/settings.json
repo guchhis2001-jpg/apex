@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(./node_modules/.bin/tsc --noEmit)",
+      "Bash(node_modules/.bin/vite build *)",
+      "Bash(tee /tmp/apex-build.log)",
+      "Bash(echo \"EXIT:$?\")",
+      "Bash(cat /tmp/apex-build.log 2>/dev/null | tail -30 || echo \"not ready\")",
+      "Read(//private/tmp/**)",
+      "Bash(git -C /Users/amazer/Desktop/apex fetch origin)",
+      "Bash(xargs ls -la)",
+      "Bash(grep -v \"46fc1ce\" /Users/amazer/Desktop/apex/.git/packed-refs)",
+      "Bash(mv /tmp/packed-refs-clean /Users/amazer/Desktop/apex/.git/packed-refs)",
+      "Bash(git -C /Users/amazer/Desktop/apex fetch --unshallow)",
+      "Bash(git -C /Users/amazer/Desktop/apex fetch --update-shallow)",
+      "Bash(git -C /Users/amazer/Desktop/apex remote prune origin)",
+      "Bash(cp /Users/amazer/Desktop/apex/.git/refs/heads/main /tmp/apex-main-ref-backup)",
+      "Bash(rm /Users/amazer/Desktop/apex/.git/refs/heads/main)",
+      "Bash(rm /Users/amazer/Desktop/apex/.git/refs/remotes/origin/main)",
+      "Bash(git -C /Users/amazer/Desktop/apex checkout -b main origin/main)",
+      "Bash(git -C /Users/amazer/Desktop/apex log --oneline -5)",
+      "Bash(git -C /Users/amazer/Desktop/apex branch -a)",
+      "Bash(git -C /Users/amazer/Desktop/apex reset --hard origin/main)",
+      "Bash(rm /Users/amazer/Desktop/apex/.git/index.lock && git -C /Users/amazer/Desktop/apex reset --hard origin/main 2>&1 && git -C /Users/amazer/Desktop/apex log --oneline -5 2>&1)",
+      "Bash(git -C /Users/amazer/Desktop/apex diff --stat HEAD)",
+      "Bash(git -C /Users/amazer/Desktop/apex status)",
+      "Bash(git -C /Users/amazer/Desktop/apex log --oneline -3)"
+    ],
+    "additionalDirectories": [
+      "/Users/amazer/Desktop/apex/.git"
+    ]
+  }
+}
