@@ -36,9 +36,9 @@ import { EnquireDialog } from "@/components/apex/EnquireDialog";
 import heroStadium from "@/assets/hero-stadium.jpg";
 import sponsorshipBg from "@/assets/sponsorship-bg.jpg";
 import lionsLogo from "@/assets/lions-logo.png";
-import wtlLogo from "@/assets/wtl-logo.png";
-import wplLogo from "@/assets/wpl-logo.png";
-import sglLogo from "@/assets/sgl-logo.png";
+import wtlLogo from "@/assets/wtl-logo.jpg";
+import wplLogo from "@/assets/wpl-logo.jpg";
+import sglLogo from "@/assets/sgl-logo.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
