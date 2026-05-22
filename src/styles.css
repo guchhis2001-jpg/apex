@@ -38,38 +38,38 @@
 
 :root {
   --radius: 0.5rem;
-  /* Apex sports brand: charcoal black + crimson */
+  /* Apex sports brand: charcoal + champagne gold, crimson as tertiary accent */
   --background: oklch(0.14 0.01 15);
   --foreground: oklch(0.98 0.005 0);
   --card: oklch(0.18 0.015 15);
   --card-foreground: oklch(0.98 0.005 0);
   --popover: oklch(0.18 0.015 15);
   --popover-foreground: oklch(0.98 0.005 0);
-  --primary: oklch(0.60 0.25 20);          /* crimson */
+  --primary: oklch(0.58 0.22 25);          /* refined crimson — reserved for hero CTAs */
   --primary-foreground: oklch(0.98 0.005 0);
   --secondary: oklch(0.22 0.02 15);
   --secondary-foreground: oklch(0.98 0.005 0);
   --muted: oklch(0.22 0.015 15);
-  --muted-foreground: oklch(0.72 0.01 15);
-  --accent: oklch(0.60 0.25 20);
-  --accent-foreground: oklch(0.98 0.005 0);
-  --destructive: oklch(0.45 0.20 25);
+  --muted-foreground: oklch(0.72 0.01 60);
+  --accent: oklch(0.78 0.13 80);           /* champagne gold */
+  --accent-foreground: oklch(0.12 0.01 15);
+  --destructive: oklch(0.55 0.22 25);
   --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(0.28 0.02 15 / 0.6);
+  --border: oklch(0.30 0.015 60 / 0.55);
   --input: oklch(0.22 0.02 15);
-  --ring: oklch(0.60 0.25 20);
+  --ring: oklch(0.78 0.13 80);
 
-  --gold: oklch(0.60 0.25 20);             /* crimson */
-  --gold-foreground: oklch(0.98 0.005 0);
-  --navy: oklch(0.18 0.015 15);            /* charcoal */
-  --navy-deep: oklch(0.10 0.01 15);        /* deep charcoal */
+  --gold: oklch(0.78 0.13 80);             /* champagne gold */
+  --gold-foreground: oklch(0.12 0.01 15);
+  --navy: oklch(0.18 0.015 15);            /* charcoal — name retained for compat */
+  --navy-deep: oklch(0.10 0.01 15);
 
-  --gradient-hero: linear-gradient(135deg, oklch(0.10 0.01 15) 0%, oklch(0.18 0.02 15) 60%, oklch(0.24 0.08 20 / 0.4) 100%);
-  --gradient-gold: linear-gradient(135deg, oklch(0.65 0.27 18) 0%, oklch(0.50 0.24 28) 100%);
+  --gradient-hero: linear-gradient(135deg, oklch(0.10 0.01 15) 0%, oklch(0.18 0.02 15) 60%, oklch(0.28 0.08 75 / 0.35) 100%);
+  --gradient-gold: linear-gradient(135deg, oklch(0.86 0.13 85) 0%, oklch(0.68 0.14 70) 100%);
   --gradient-card: linear-gradient(160deg, oklch(0.20 0.02 15 / 0.85) 0%, oklch(0.14 0.01 15 / 0.95) 100%);
-  --shadow-gold: 0 10px 40px -10px oklch(0.60 0.25 20 / 0.45);
+  --shadow-gold: 0 10px 40px -10px oklch(0.78 0.13 80 / 0.40);
   --shadow-card: 0 20px 50px -20px oklch(0 0 0 / 0.6);
-  --glass-border: 1px solid oklch(0.60 0.25 20 / 0.18);
+  --glass-border: 1px solid oklch(0.78 0.13 80 / 0.16);
 }
 
 .dark { color-scheme: dark; }
@@ -82,8 +82,8 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     background-image:
-      radial-gradient(ellipse at top, oklch(0.60 0.25 20 / 0.08), transparent 50%),
-      radial-gradient(ellipse at bottom, oklch(0.28 0.06 15 / 0.4), transparent 60%);
+      radial-gradient(ellipse at top, oklch(0.78 0.13 80 / 0.07), transparent 50%),
+      radial-gradient(ellipse at bottom, oklch(0.28 0.06 25 / 0.35), transparent 60%);
     background-attachment: fixed;
   }
   h1, h2, h3, .font-display {
@@ -108,7 +108,7 @@
     box-shadow: var(--shadow-card);
   }
   .shadow-gold { box-shadow: var(--shadow-gold); }
-  .gold-border { border: 1px solid oklch(0.60 0.25 20 / 0.4); }
+  .gold-border { border: 1px solid oklch(0.78 0.13 80 / 0.4); }
 
   @keyframes float-slow {
     0%, 100% { transform: translateY(0); }
@@ -121,7 +121,7 @@
     100% { background-position: 200% 0; }
   }
   .shimmer {
-    background: linear-gradient(90deg, transparent, oklch(0.60 0.25 20 / 0.3), transparent);
+    background: linear-gradient(90deg, transparent, oklch(0.78 0.13 80 / 0.3), transparent);
     background-size: 200% 100%;
     animation: shimmer 3s infinite;
   }
