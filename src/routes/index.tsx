@@ -457,13 +457,13 @@ function ApexHome() {
               </p>
 
               <div className="space-y-4">
-                <a href="mailto:Info@gamechangersfzco.com" className="flex items-center gap-4 group">
+                <a href="mailto:connect@apex-marcom.com" className="flex items-center gap-4 group">
                   <div className="w-12 h-12 rounded-xl glass-card gold-border flex items-center justify-center group-hover:bg-gold group-hover:text-gold-foreground transition">
                     <Mail size={20} />
                   </div>
                   <div>
                     <div className="text-xs uppercase tracking-widest text-muted-foreground">Email</div>
-                    <div className="font-medium">Info@gamechangersfzco.com</div>
+                    <div className="font-medium">connect@apex-marcom.com</div>
                   </div>
                 </a>
                 <a href="tel:+971504174551" className="flex items-center gap-4 group">
@@ -472,7 +472,7 @@ function ApexHome() {
                   </div>
                   <div>
                     <div className="text-xs uppercase tracking-widest text-muted-foreground">Phone</div>
-                    <div className="font-medium">+971 50 417 4551</div>
+                    <div className="font-medium">+91-9810190305</div>
                   </div>
                 </a>
               </div>
