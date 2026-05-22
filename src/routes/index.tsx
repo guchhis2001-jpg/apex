@@ -463,21 +463,6 @@ function ApexHome() {
 
           {/* BRAND PORTFOLIO */}
           <div className="mt-28">
-            <div className="relative overflow-hidden border-y border-border/60 py-6 mb-16">
-              <div className="pointer-events-none absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-background to-transparent z-10" />
-              <div className="pointer-events-none absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-background to-transparent z-10" />
-              <div className="flex animate-marquee whitespace-nowrap will-change-transform">
-                {[...clients, ...clients].map((c, i) => (
-                  <div key={`${c.name}-${i}`} className="flex items-center shrink-0">
-                    <span className="font-display text-2xl md:text-3xl tracking-wider text-muted-foreground/60 px-8">
-                      {c.name.toUpperCase()}
-                    </span>
-                    <span className="text-gold/40 text-2xl md:text-3xl">•</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
             <div className="mb-12">
               <div className="text-gold text-xs uppercase tracking-[0.3em] mb-4">Client Portfolio</div>
               <h2 className="font-display text-5xl md:text-6xl leading-none">
