@@ -662,33 +662,70 @@ function Detail({
 
 function ContactForm({ defaultInterest }: { defaultInterest: string }) {
   const [interest, setInterest] = useState(defaultInterest);
+  const [submitting, setSubmitting] = useState(false);
+
   return (
     <form
       className="space-y-4"
-      onSubmit={(e) => {
+      onSubmit={async (e) => {
         e.preventDefault();
-        toast.success("Message sent. We'll be in touch shortly.");
-        (e.target as HTMLFormElement).reset();
+        if (submitting) return;
+        const form = e.currentTarget;
+        const data = new FormData(form);
+        const payload = {
+          name: String(data.get("name") || ""),
+          company: String(data.get("company") || ""),
+          email: String(data.get("email") || ""),
+          phone: String(data.get("phone") || ""),
+          interest,
+          message: String(data.get("message") || ""),
+          website: String(data.get("website") || ""),
+        };
+
+        setSubmitting(true);
+        try {
+          const res = await fetch("/api/contact", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+          if (!res.ok) throw new Error("Send failed");
+          toast.success("Message sent. We'll be in touch shortly.");
+          form.reset();
+        } catch {
+          toast.error("Couldn't send right now. Email connect@apex-marcom.com directly.");
+        } finally {
+          setSubmitting(false);
+        }
       }}
     >
+      <input
+        type="text"
+        name="website"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        style={{ position: "absolute", left: "-9999px", width: 1, height: 1, opacity: 0 }}
+      />
+
       <div className="grid grid-cols-2 gap-3">
         <div className="space-y-1">
           <Label htmlFor="c-name">Name</Label>
-          <Input id="c-name" required className="bg-background/50" />
+          <Input id="c-name" name="name" required className="bg-background/50" />
         </div>
         <div className="space-y-1">
           <Label htmlFor="c-company">Company</Label>
-          <Input id="c-company" required className="bg-background/50" />
+          <Input id="c-company" name="company" required className="bg-background/50" />
         </div>
       </div>
       <div className="grid grid-cols-2 gap-3">
         <div className="space-y-1">
           <Label htmlFor="c-email">Email</Label>
-          <Input id="c-email" type="email" required className="bg-background/50" />
+          <Input id="c-email" name="email" type="email" required className="bg-background/50" />
         </div>
         <div className="space-y-1">
           <Label htmlFor="c-phone">Phone</Label>
-          <Input id="c-phone" className="bg-background/50" />
+          <Input id="c-phone" name="phone" className="bg-background/50" />
         </div>
       </div>
       <div className="space-y-1">
@@ -706,10 +743,10 @@ function ContactForm({ defaultInterest }: { defaultInterest: string }) {
       </div>
       <div className="space-y-1">
         <Label htmlFor="c-msg">Message</Label>
-        <Textarea id="c-msg" rows={4} className="bg-background/50" />
+        <Textarea id="c-msg" name="message" rows={4} className="bg-background/50" />
       </div>
-      <Button type="submit" variant="hero" size="lg" className="w-full">
-        Send Message
+      <Button type="submit" variant="hero" size="lg" className="w-full" disabled={submitting}>
+        {submitting ? "Sending…" : "Send Message"}
       </Button>
     </form>
   );

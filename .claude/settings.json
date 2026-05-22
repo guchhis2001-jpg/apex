@@ -25,7 +25,10 @@
       "Bash(git -C /Users/amazer/Desktop/apex diff --stat HEAD)",
       "Bash(git -C /Users/amazer/Desktop/apex status)",
       "Bash(git -C /Users/amazer/Desktop/apex log --oneline -3)",
-      "Bash(npx vite *)"
+      "Bash(npx vite *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)"
     ],
     "additionalDirectories": [
       "/Users/amazer/Desktop/apex/.git"
