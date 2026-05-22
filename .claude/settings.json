@@ -28,8 +28,7 @@
       "Bash(npx vite *)",
       "Bash(git add *)",
       "Bash(git commit -m ' *)",
-      "Bash(git push *)",
-      "Bash(grep -n \"Show \\\\${p.name}\\\\|<\\\\/section>\" /Users/amazer/Desktop/apex/src/routes/index.tsx)"
+      "Bash(git push *)"
     ],
     "additionalDirectories": [
       "/Users/amazer/Desktop/apex/.git"
