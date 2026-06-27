@@ -234,10 +234,9 @@ const founders: {
   desc: string;
 }[] = [
   {
-    photo: arjunPhoto,
-    name: "Arjun Sharma",
-    objectPosition: "62% 12%",
-    desc: "Builds the team, internal systems, and operational structure while actively contributing to the creative process. Ensures the right people and processes are in place to turn ideas into consistent output.",
+    photo: aaryanPhoto,
+    name: "Aaryan Saxena",
+    desc: "Aaryan leads brand positioning, perception, and growth strategy at Apex Marcom. He guides the team on campaign direction, messaging, and execution to ensure every initiative builds credibility, influence, and long-term brand value.",
   },
   {
     photo: ritviPhoto,
@@ -245,9 +244,10 @@ const founders: {
     desc: "Leads brand direction, design systems, and overall creative output while being deeply involved in execution. Collaborates across all functions to ensure every output reflects a unified vision and standard.",
   },
   {
-    photo: aaryanPhoto,
-    name: "Aaryan Saxena",
-    desc: "Drives sales, partnerships, and strategic growth while staying actively involved in the creative process. Works closely with the team to align client opportunities with strong execution and brand direction.",
+    photo: arjunPhoto,
+    name: "Arjun Sharma",
+    objectPosition: "62% 12%",
+    desc: "Builds the team, internal systems, and operational structure while actively contributing to the creative process. Ensures the right people and processes are in place to turn ideas into consistent output.",
   },
 ];
 
