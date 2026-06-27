@@ -12,6 +12,7 @@ import {
   MapPin,
   Calendar,
   ArrowRight,
+  ArrowUpRight,
   Mail,
   Phone,
   CheckCircle2,
@@ -205,17 +206,17 @@ const partners = [
 ];
 
 const clients = [
-  { name: "EaseMyTrip", industry: "Travel & Lifestyle" },
-  { name: "Indian Pesticides Limited", industry: "Agrochemicals" },
-  { name: "Cressanda Railway Solutions", industry: "Infrastructure" },
-  { name: "Toyam Sports Limited", industry: "Sports & Media" },
-  { name: "Qorum Watches", industry: "Luxury Watches" },
-  { name: "Anjali Gold", industry: "Jewellery" },
-  { name: "Booster Water", industry: "FMCG / Beverages" },
-  { name: "Panorama Studios", industry: "Film Production" },
-  { name: "Soham Rockstar Entertainment", industry: "Entertainment" },
-  { name: "Platinum Music", industry: "Music" },
-];
+  { name: "EaseMyTrip", industry: "Travel & Lifestyle", url: "https://www.easemytrip.com" },
+  { name: "Indian Pesticides Limited", industry: "Agrochemicals", url: "https://www.indiapesticideslimited.com" },
+  { name: "Cressanda Railway Solutions", industry: "Infrastructure", url: "https://www.cressanda.com" },
+  { name: "Toyam Sports Limited", industry: "Sports & Media", url: "https://toyamsportsltd.com" },
+  { name: "Qorum Watches", industry: "Luxury Watches", url: "https://www.qorumindia.com" },
+  { name: "Anjali Gold", industry: "Jewellery", url: undefined },
+  { name: "Booster Water", industry: "FMCG / Beverages", url: "https://boosterwater.com" },
+  { name: "Panorama Studios", industry: "Film Production", url: "https://panoramastudios.in" },
+  { name: "Soham Rockstar Entertainment", industry: "Entertainment", url: "https://sohamrockstar.com" },
+  { name: "Platinum Music", industry: "Music", url: undefined },
+] as const;
 
 const founders = [
   {
@@ -499,25 +500,39 @@ function ApexHome() {
             </div>
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {clients.map((client) => (
-                <div
-                  key={client.name}
-                  className="glass-card tile-hover rounded-2xl p-6 group cursor-default"
-                >
-                  <div className="flex items-start justify-between mb-3 gap-2">
-                    <span className="inline-block px-2.5 py-0.5 rounded-full bg-gold/10 text-gold text-[10px] uppercase tracking-widest leading-relaxed">
-                      {client.industry}
-                    </span>
-                    <ArrowRight
-                      size={14}
-                      className="text-muted-foreground/40 group-hover:text-gold group-hover:translate-x-1 transition-all shrink-0 mt-1"
-                    />
-                  </div>
-                  <div className="font-display text-xl md:text-2xl tracking-wide leading-tight">
-                    {client.name.toUpperCase()}
-                  </div>
-                </div>
-              ))}
+              {clients.map((client) => {
+                const linkable = Boolean(client.url);
+                const Card = linkable ? "a" : "div";
+                return (
+                  <Card
+                    key={client.name}
+                    {...(linkable
+                      ? {
+                          href: client.url,
+                          target: "_blank",
+                          rel: "noopener noreferrer",
+                          "aria-label": `Visit ${client.name} website`,
+                        }
+                      : {})}
+                    className={`glass-card tile-hover rounded-2xl p-6 group block ${linkable ? "cursor-pointer" : "cursor-default"}`}
+                  >
+                    <div className="flex items-start justify-between mb-3 gap-2">
+                      <span className="inline-block px-2.5 py-0.5 rounded-full bg-gold/10 text-gold text-[10px] uppercase tracking-widest leading-relaxed">
+                        {client.industry}
+                      </span>
+                      {linkable && (
+                        <ArrowUpRight
+                          size={16}
+                          className="text-muted-foreground/40 group-hover:text-gold group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all shrink-0 mt-1"
+                        />
+                      )}
+                    </div>
+                    <div className="font-display text-xl md:text-2xl tracking-wide leading-tight">
+                      {client.name.toUpperCase()}
+                    </div>
+                  </Card>
+                );
+              })}
             </div>
           </div>
         </div>
