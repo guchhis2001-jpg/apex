@@ -167,50 +167,21 @@ const partners = [
     logo: lionsLogo,
     name: "Game Changers Lions",
     badge: "Official Exclusive Sponsor Partner",
-    description: (
-      <>
-        Competing in the World Padel League — India's fastest-growing padel
-        franchise, broadcast on Sony Sports & FanCode, with a total sponsorship
-        value of <span className="text-gold font-semibold">$15.46M</span>.
-      </>
-    ),
-    tags: ["World Padel League", "Sony Sports", "FanCode", "Mumbai 2026"],
   },
   {
     logo: wtlLogo,
     name: "World Tennis League",
     badge: "League Partner",
-    description: (
-      <>
-        Official league partner — broadcast details and activation scope to be
-        confirmed. Replace this copy with the real partnership terms.
-      </>
-    ),
-    tags: ["WTL", "Tennis", "International"],
   },
   {
     logo: wplLogo,
     name: "World Padel League",
     badge: "League Partner",
-    description: (
-      <>
-        Official league partner — broadcast details and activation scope to be
-        confirmed. Replace this copy with the real partnership terms.
-      </>
-    ),
-    tags: ["WPL", "Padel", "India"],
   },
   {
     logo: sglLogo,
     name: "Star Golf League",
     badge: "League Partner",
-    description: (
-      <>
-        Official league partner — broadcast details and activation scope to be
-        confirmed. Replace this copy with the real partnership terms.
-      </>
-    ),
-    tags: ["SGL", "Golf", "Premium"],
   },
 ];
 
@@ -270,13 +241,48 @@ const navLinks = [
 function ApexHome() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedPkg, setSelectedPkg] = useState<string | undefined>();
-  const [partnerIndex, setPartnerIndex] = useState(0);
+  const [activeSection, setActiveSection] = useState("top");
 
+  // Scroll-spy: highlight the nav link for the section currently in view.
   useEffect(() => {
-    const id = setInterval(() => {
-      setPartnerIndex((i) => (i + 1) % partners.length);
-    }, 5000);
-    return () => clearInterval(id);
+    const ids = ["top", ...navLinks.map((l) => l.href.slice(1))];
+    const sections = ids
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => Boolean(el));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible) setActiveSection(visible.target.id);
+      },
+      { rootMargin: "-45% 0px -50% 0px", threshold: [0, 0.25, 0.5, 1] },
+    );
+    sections.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
+  }, []);
+
+  // Scroll-reveal: fade content in as it enters the viewport.
+  useEffect(() => {
+    const els = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) {
+      els.forEach((el) => el.classList.add("is-visible"));
+      return;
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("is-visible");
+            observer.unobserve(e.target);
+          }
+        });
+      },
+      { rootMargin: "0px 0px -10% 0px", threshold: 0.15 },
+    );
+    els.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
   }, []);
 
   const openEnquire = (pkg?: string) => {
@@ -296,12 +302,29 @@ function ApexHome() {
           </a>
 
           {/* Desktop links */}
-          <div className="hidden md:flex items-center gap-8 text-sm font-medium text-muted-foreground">
-            {navLinks.map((link) => (
-              <a key={link.href} href={link.href} className="hover:text-gold transition">
-                {link.label}
-              </a>
-            ))}
+          <div className="hidden md:flex items-center gap-8 text-sm font-medium">
+            {navLinks.map((link) => {
+              const active = activeSection === link.href.slice(1);
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  aria-current={active ? "true" : undefined}
+                  className={`relative transition ${
+                    active
+                      ? "text-foreground"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  {link.label}
+                  <span
+                    className={`absolute -bottom-1.5 left-0 h-0.5 rounded-full bg-gradient-gold transition-all duration-300 ${
+                      active ? "w-full" : "w-0"
+                    }`}
+                  />
+                </a>
+              );
+            })}
           </div>
 
           <div className="flex items-center gap-3">
@@ -318,15 +341,21 @@ function ApexHome() {
               </SheetTrigger>
               <SheetContent side="right" className="w-64 pt-12">
                 <nav className="flex flex-col gap-6">
-                  {navLinks.map((link) => (
-                    <a
-                      key={link.href}
-                      href={link.href}
-                      className="text-base font-medium hover:text-gold transition"
-                    >
-                      {link.label}
-                    </a>
-                  ))}
+                  {navLinks.map((link) => {
+                    const active = activeSection === link.href.slice(1);
+                    return (
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        aria-current={active ? "true" : undefined}
+                        className={`text-base font-medium transition ${
+                          active ? "text-gradient-gold" : "hover:text-foreground"
+                        }`}
+                      >
+                        {link.label}
+                      </a>
+                    );
+                  })}
                   <Button variant="hero" asChild className="mt-2">
                     <a href="#contact">Get In Touch</a>
                   </Button>
@@ -411,10 +440,10 @@ function ApexHome() {
       </section>
 
       {/* SERVICES */}
-      <section id="services" className="py-28 relative">
+      <section id="services" className="py-28 relative border-t border-border/40">
         <div className="container mx-auto px-6">
           <div className="max-w-2xl mb-16">
-            <div className="text-gold text-xs uppercase tracking-[0.3em] mb-4">What We Do</div>
+            <div className="text-accent-soft text-xs uppercase tracking-[0.3em] mb-4">What We Do</div>
             <h2 className="font-display text-5xl md:text-6xl leading-none mb-4">
               MARKETING THAT <span className="text-gradient-gold">SCORES</span>.
             </h2>
@@ -424,7 +453,7 @@ function ApexHome() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6" data-reveal>
             {services.map((s, i) => (
               <div
                 key={s.title}
@@ -443,66 +472,45 @@ function ApexHome() {
       </section>
 
       {/* CLIENTS */}
-      <section id="clients" className="py-28 relative">
+      <section id="clients" className="py-28 relative border-t border-border/40">
         <div className="container mx-auto px-6">
-          <div className="mb-16">
-            <div className="text-gold text-xs uppercase tracking-[0.3em] mb-4">Our Roster</div>
+          <div className="mb-16" data-reveal>
+            <div className="text-accent-soft text-xs uppercase tracking-[0.3em] mb-4">Our Roster</div>
             <h2 className="font-display text-5xl md:text-6xl leading-none">
               TRUSTED BY LEAGUES <br /> & <span className="text-gradient-gold">TEAMS</span>
             </h2>
           </div>
 
-          <div className="relative">
-            <div key={partnerIndex} className="glass-card rounded-3xl p-8 md:p-10 relative overflow-hidden gold-border animate-fade-up">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-gold/10 rounded-full blur-3xl" />
-              <div className="relative flex flex-col md:flex-row gap-8 items-center">
-                <div className="shrink-0 w-40 h-40 rounded-2xl bg-white flex items-center justify-center p-5">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-5" data-reveal>
+            {partners.map((p) => (
+              <div
+                key={p.name}
+                className="glass-card tile-hover rounded-2xl p-6 flex flex-col items-center text-center"
+              >
+                <div className="w-full h-28 rounded-xl bg-white flex items-center justify-center p-5 mb-5">
                   <img
-                    src={partners[partnerIndex].logo}
-                    alt={partners[partnerIndex].name}
+                    src={p.logo}
+                    alt={`${p.name} logo`}
                     width={420}
                     height={420}
-                    className="w-full h-full object-contain"
+                    loading="lazy"
+                    className="max-h-full max-w-full object-contain"
                   />
                 </div>
-                <div className="flex-1 text-center md:text-left">
-                  <div className="inline-block px-3 py-1 rounded-full bg-gold/15 text-gold text-[10px] uppercase tracking-widest mb-3">
-                    {partners[partnerIndex].badge}
-                  </div>
-                  <h3 className="font-display text-3xl md:text-4xl mb-3 tracking-wide">
-                    {partners[partnerIndex].name.toUpperCase()}
-                  </h3>
-                  <p className="text-muted-foreground leading-relaxed mb-4">
-                    {partners[partnerIndex].description}
-                  </p>
-                  <div className="flex flex-wrap gap-2 justify-center md:justify-start">
-                    {partners[partnerIndex].tags.map((t) => (
-                      <span key={t} className="text-xs px-3 py-1 rounded-full border border-border text-muted-foreground">{t}</span>
-                    ))}
-                  </div>
-                </div>
+                <h3 className="font-display text-lg tracking-wide leading-tight mb-2">
+                  {p.name.toUpperCase()}
+                </h3>
+                <span className="text-[10px] uppercase tracking-widest text-gold/90 leading-relaxed">
+                  {p.badge}
+                </span>
               </div>
-            </div>
-
-            <div className="flex items-center justify-center gap-2 mt-6">
-              {partners.map((p, i) => (
-                <button
-                  key={p.name}
-                  type="button"
-                  onClick={() => setPartnerIndex(i)}
-                  aria-label={`Show ${p.name}`}
-                  className={`h-1.5 rounded-full transition-all duration-300 ${
-                    i === partnerIndex ? "w-8 bg-gold" : "w-2 bg-border hover:bg-muted-foreground"
-                  }`}
-                />
-              ))}
-            </div>
+            ))}
           </div>
 
           {/* BRAND PORTFOLIO */}
           <div className="mt-28">
             <div className="mb-12">
-              <div className="text-gold text-xs uppercase tracking-[0.3em] mb-4">Client Portfolio</div>
+              <div className="text-accent-soft text-xs uppercase tracking-[0.3em] mb-4">Client Portfolio</div>
               <h2 className="font-display text-5xl md:text-6xl leading-none">
                 BRANDS WE'VE <span className="text-gradient-gold">BUILT WITH</span>.
               </h2>
@@ -511,7 +519,7 @@ function ApexHome() {
               </p>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-5">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-5" data-reveal>
               {clients.map((client) => {
                 const linkable = Boolean(client.url);
                 const Card = linkable ? "a" : "div";
@@ -565,7 +573,7 @@ function ApexHome() {
       </section>
 
       {/* SPONSORSHIP MARKETPLACE */}
-      <section id="sponsorship" className="py-28 relative">
+      <section id="sponsorship" className="py-28 relative border-t border-border/40">
         <div className="absolute inset-0 z-0">
           <img src={sponsorshipBg} alt="" width={1920} height={1080} loading="lazy" className="w-full h-full object-cover opacity-20" />
           <div className="absolute inset-0 bg-gradient-to-b from-background via-background/80 to-background" />
@@ -573,7 +581,7 @@ function ApexHome() {
 
         <div className="container mx-auto px-6 relative z-10">
           <div className="mb-16">
-            <div className="text-gold text-xs uppercase tracking-[0.3em] mb-4">Sponsorship Marketplace</div>
+            <div className="text-accent-soft text-xs uppercase tracking-[0.3em] mb-4">Sponsorship Marketplace</div>
             <h2 className="font-display text-5xl md:text-6xl leading-none mb-4">
               OWN A PIECE <br /> OF THE <span className="text-gradient-gold">GAME</span>.
             </h2>
@@ -611,17 +619,25 @@ function ApexHome() {
           </div>
 
           {/* Sponsorship tiers — horizontal rows */}
-          <div className="space-y-3">
-            {packages.map((p) => (
+          <div className="space-y-3" data-reveal>
+            {packages.map((p, i) => (
               <div
                 key={p.tier}
-                className={`glass-card rounded-2xl px-6 py-5 flex flex-col sm:flex-row sm:items-center gap-4 transition-all duration-200 hover:border-gold/40 ${
+                className={`glass-card rounded-2xl px-6 py-5 flex flex-col sm:flex-row sm:items-center gap-4 transition-all duration-300 hover:border-gold/50 hover:bg-white/[0.02] ${
                   p.highlight ? "gold-border" : ""
                 }`}
               >
-                {/* Badge + name */}
+                {/* Rank + name */}
                 <div className="flex items-center gap-4 sm:w-52 shrink-0">
-                  <span className="text-3xl">{p.badge}</span>
+                  <div
+                    className={`flex items-center justify-center w-11 h-11 rounded-xl shrink-0 font-display text-lg ${
+                      p.highlight
+                        ? "bg-gradient-gold text-gold-foreground shadow-gold"
+                        : "bg-secondary text-foreground border border-border"
+                    }`}
+                  >
+                    {i + 1}
+                  </div>
                   <div>
                     <div className="font-display text-lg tracking-wide leading-tight">{p.tier.toUpperCase()}</div>
                     {p.note && <div className="text-[10px] text-gold/80 uppercase tracking-widest mt-0.5">{p.note}</div>}
@@ -638,7 +654,7 @@ function ApexHome() {
                 <div className="hidden sm:block w-px self-stretch bg-border shrink-0" />
 
                 {/* Perks */}
-                <div className="flex-1 hidden md:flex flex-wrap gap-x-5 gap-y-1.5">
+                <div className="flex-1 flex flex-wrap gap-x-5 gap-y-1.5">
                   {p.perks.map((perk) => (
                     <span key={perk} className="text-xs text-muted-foreground flex items-center gap-1.5">
                       <CheckCircle2 size={12} className="text-gold shrink-0" />
@@ -665,16 +681,16 @@ function ApexHome() {
       </section>
 
       {/* HOW WE WORK */}
-      <section id="why" className="py-28 relative">
+      <section id="why" className="py-28 relative border-t border-border/40">
         <div className="container mx-auto px-6">
           <div className="mb-16">
-            <div className="text-gold text-xs uppercase tracking-[0.3em] mb-4">How We Work</div>
+            <div className="text-accent-soft text-xs uppercase tracking-[0.3em] mb-4">How We Work</div>
             <h2 className="font-display text-5xl md:text-6xl leading-none">
               FROM BRIEF TO <span className="text-gradient-gold">RESULTS</span>.
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-border">
+          <div className="grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-border" data-reveal>
             {process.map((p, i) => (
               <div key={p.step} className={`py-8 md:py-0 ${i === 0 ? "md:pr-12" : i === 1 ? "md:px-12" : "md:pl-12"}`}>
                 <div className="font-display text-7xl text-gold/15 leading-none mb-6 select-none">{p.step}</div>
@@ -687,10 +703,10 @@ function ApexHome() {
       </section>
 
       {/* FOUNDERS */}
-      <section id="founders" className="py-28 relative">
+      <section id="founders" className="py-28 relative border-t border-border/40">
         <div className="container mx-auto px-6">
           <div className="max-w-2xl mb-16">
-            <div className="text-gold text-xs uppercase tracking-[0.3em] mb-4">Meet The Founders</div>
+            <div className="text-accent-soft text-xs uppercase tracking-[0.3em] mb-4">Meet The Founders</div>
             <h2 className="font-display text-5xl md:text-6xl leading-none mb-4">
               THE TEAM BEHIND <span className="text-gradient-gold">APEX</span>.
             </h2>
@@ -700,7 +716,7 @@ function ApexHome() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-6" data-reveal>
             {founders.map((f) => (
               <div
                 key={f.name}
@@ -726,11 +742,11 @@ function ApexHome() {
       </section>
 
       {/* CONTACT */}
-      <section id="contact" className="py-28 relative">
+      <section id="contact" className="py-28 relative border-t border-border/40">
         <div className="container mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-12 lg:items-center">
             <div>
-              <div className="text-gold text-xs uppercase tracking-[0.3em] mb-4">Contact</div>
+              <div className="text-accent-soft text-xs uppercase tracking-[0.3em] mb-4">Contact</div>
               <h2 className="font-display text-5xl md:text-6xl leading-none mb-6">
                 LET'S <span className="text-gradient-gold">TALK</span>.
               </h2>
@@ -780,11 +796,54 @@ function ApexHome() {
       </section>
 
       {/* FOOTER */}
-      <footer className="border-t border-border py-10">
-        <div className="container mx-auto px-6 flex flex-col md:flex-row gap-4 items-center justify-between text-sm text-muted-foreground">
-          <div className="font-display text-xl tracking-widest text-gradient-gold">APEX</div>
-          <div>© {new Date().getFullYear()} Apex Sports Marketing. All rights reserved.</div>
-          <div>Game Changers FZ-CO · Dubai, UAE</div>
+      <footer className="border-t border-border pt-16 pb-10">
+        <div className="container mx-auto px-6">
+          <div className="grid gap-10 md:grid-cols-4 mb-12">
+            <div className="md:col-span-2 max-w-sm">
+              <a href="#top" className="font-display text-2xl tracking-widest text-gradient-gold">
+                APEX MARCOM
+              </a>
+              <p className="text-sm text-muted-foreground mt-4 leading-relaxed">
+                The agency behind the game — full-service sports marketing and
+                sponsorship sales for championship leagues and teams.
+              </p>
+            </div>
+
+            <div>
+              <div className="text-xs uppercase tracking-[0.25em] text-foreground/80 mb-4">Explore</div>
+              <ul className="space-y-2.5 text-sm text-muted-foreground">
+                {navLinks.map((l) => (
+                  <li key={l.href}>
+                    <a href={l.href} className="hover:text-gold transition">{l.label}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <div className="text-xs uppercase tracking-[0.25em] text-foreground/80 mb-4">Get In Touch</div>
+              <ul className="space-y-2.5 text-sm text-muted-foreground">
+                <li>
+                  <a href="mailto:connect@apex-marcom.com" className="hover:text-gold transition flex items-center gap-2">
+                    <Mail size={14} className="shrink-0" /> connect@apex-marcom.com
+                  </a>
+                </li>
+                <li>
+                  <a href="tel:+919810190305" className="hover:text-gold transition flex items-center gap-2">
+                    <Phone size={14} className="shrink-0" /> +91-9810190305
+                  </a>
+                </li>
+                <li className="flex items-center gap-2">
+                  <MapPin size={14} className="shrink-0" /> Mumbai · Dubai
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="border-t border-border pt-6 flex flex-col md:flex-row gap-3 items-center justify-between text-xs text-muted-foreground">
+            <div>© {new Date().getFullYear()} Apex Marcom. All rights reserved.</div>
+            <div>Game Changers FZ-CO · Dubai, UAE</div>
+          </div>
         </div>
       </footer>
 
