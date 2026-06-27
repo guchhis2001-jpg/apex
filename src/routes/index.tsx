@@ -227,23 +227,26 @@ const clients = [
   { name: "Platinum Music", industry: "Music", url: undefined, logo: undefined },
 ] as const;
 
-const founders = [
+const founders: {
+  photo: string;
+  name: string;
+  objectPosition?: string;
+  desc: string;
+}[] = [
   {
     photo: arjunPhoto,
     name: "Arjun Sharma",
-    role: "Team & Operations",
+    objectPosition: "62% 12%",
     desc: "Builds the team, internal systems, and operational structure while actively contributing to the creative process. Ensures the right people and processes are in place to turn ideas into consistent output.",
   },
   {
     photo: ritviPhoto,
     name: "Ritvi Ojha",
-    role: "Brand & Creative",
     desc: "Leads brand direction, design systems, and overall creative output while being deeply involved in execution. Collaborates across all functions to ensure every output reflects a unified vision and standard.",
   },
   {
     photo: aaryanPhoto,
     name: "Aaryan Saxena",
-    role: "Sales & Growth",
     desc: "Drives sales, partnerships, and strategic growth while staying actively involved in the creative process. Works closely with the team to align client opportunities with strong execution and brand direction.",
   },
 ];
@@ -707,12 +710,12 @@ function ApexHome() {
                   <img
                     src={f.photo}
                     alt={f.name}
-                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                    style={{ objectPosition: f.objectPosition ?? "50% 0%" }}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
                 </div>
                 <div className="p-7 flex flex-col flex-1">
-                  <div className="text-gold text-[10px] uppercase tracking-[0.3em] mb-2">{f.role}</div>
                   <h3 className="font-display text-2xl tracking-wide mb-3">{f.name.toUpperCase()}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
                 </div>
