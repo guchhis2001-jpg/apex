@@ -37,9 +37,9 @@ import { EnquireDialog } from "@/components/apex/EnquireDialog";
 import heroStadium from "@/assets/hero-stadium.jpg";
 import sponsorshipBg from "@/assets/sponsorship-bg.jpg";
 import lionsLogo from "@/assets/lions-logo.png";
-import wtlLogo from "@/assets/wtl-logo.jpg";
-import wplLogo from "@/assets/wpl-logo.jpg";
-import sglLogo from "@/assets/sgl-logo.jpg";
+import wtlLogo from "@/assets/wtl-logo.png";
+import wplLogo from "@/assets/wpl-logo.png";
+import sglLogo from "@/assets/sgl-logo.png";
 import arjunPhoto from "@/assets/arjun-sharma.jpg";
 import ritviPhoto from "@/assets/ritvi-ojha.jpg";
 import aaryanPhoto from "@/assets/aaryan-saxena.jpg";
@@ -453,12 +453,12 @@ function ApexHome() {
             <div key={partnerIndex} className="glass-card rounded-3xl p-8 md:p-10 relative overflow-hidden gold-border animate-fade-up">
               <div className="absolute top-0 right-0 w-64 h-64 bg-gold/10 rounded-full blur-3xl" />
               <div className="relative flex flex-col md:flex-row gap-8 items-center">
-                <div className="shrink-0 w-40 h-40 rounded-2xl bg-navy-deep/50 flex items-center justify-center p-4">
+                <div className="shrink-0 w-40 h-40 rounded-2xl bg-white flex items-center justify-center p-5">
                   <img
                     src={partners[partnerIndex].logo}
                     alt={partners[partnerIndex].name}
-                    width={512}
-                    height={512}
+                    width={420}
+                    height={420}
                     className="w-full h-full object-contain"
                   />
                 </div>
