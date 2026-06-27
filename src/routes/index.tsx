@@ -390,7 +390,7 @@ function ApexHome() {
             {services.map((s, i) => (
               <div
                 key={s.title}
-                className="glass-card rounded-2xl p-8 group hover:-translate-y-1 transition-all duration-300 hover:border-gold/40"
+                className="glass-card tile-hover rounded-2xl p-8 group"
                 style={{ animationDelay: `${i * 80}ms` }}
               >
                 <div className="w-14 h-14 rounded-xl bg-gradient-gold flex items-center justify-center mb-6">
@@ -477,7 +477,7 @@ function ApexHome() {
               {clients.map((client) => (
                 <div
                   key={client.name}
-                  className="glass-card rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:border-gold/40 group cursor-default"
+                  className="glass-card tile-hover rounded-2xl p-6 group cursor-default"
                 >
                   <div className="flex items-start justify-between mb-3 gap-2">
                     <span className="inline-block px-2.5 py-0.5 rounded-full bg-gold/10 text-gold text-[10px] uppercase tracking-widest leading-relaxed">
