@@ -43,6 +43,15 @@ import sglLogo from "@/assets/sgl-logo.jpg";
 import arjunPhoto from "@/assets/arjun-sharma.jpg";
 import ritviPhoto from "@/assets/ritvi-ojha.jpg";
 import aaryanPhoto from "@/assets/aaryan-saxena.jpg";
+import easemytripLogo from "@/assets/logos/easemytrip.svg";
+import indiaPesticidesLogo from "@/assets/logos/indiapesticides.png";
+import cressandaLogo from "@/assets/logos/cressanda.png";
+import toyamLogo from "@/assets/logos/toyam.png";
+import qorumLogo from "@/assets/logos/qorum.png";
+import boosterLogo from "@/assets/logos/booster.png";
+import panoramaLogo from "@/assets/logos/panorama.png";
+import sohamLogo from "@/assets/logos/soham.png";
+import anjaliLogo from "@/assets/logos/anjaligold.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -206,16 +215,16 @@ const partners = [
 ];
 
 const clients = [
-  { name: "EaseMyTrip", industry: "Travel & Lifestyle", url: "https://www.easemytrip.com" },
-  { name: "Indian Pesticides Limited", industry: "Agrochemicals", url: "https://www.indiapesticideslimited.com" },
-  { name: "Cressanda Railway Solutions", industry: "Infrastructure", url: "https://www.cressanda.com" },
-  { name: "Toyam Sports Limited", industry: "Sports & Media", url: "https://toyamsportsltd.com" },
-  { name: "Qorum Watches", industry: "Luxury Watches", url: "https://www.qorumindia.com" },
-  { name: "Anjali Gold", industry: "Jewellery", url: undefined },
-  { name: "Booster Water", industry: "FMCG / Beverages", url: "https://boosterwater.com" },
-  { name: "Panorama Studios", industry: "Film Production", url: "https://panoramastudios.in" },
-  { name: "Soham Rockstar Entertainment", industry: "Entertainment", url: "https://sohamrockstar.com" },
-  { name: "Platinum Music", industry: "Music", url: undefined },
+  { name: "EaseMyTrip", industry: "Travel & Lifestyle", url: "https://www.easemytrip.com", logo: easemytripLogo },
+  { name: "Indian Pesticides Limited", industry: "Agrochemicals", url: "https://www.indiapesticideslimited.com", logo: indiaPesticidesLogo },
+  { name: "Cressanda Railway Solutions", industry: "Infrastructure", url: "https://www.cressanda.com", logo: cressandaLogo },
+  { name: "Toyam Sports Limited", industry: "Sports & Media", url: "https://toyamsportsltd.com", logo: toyamLogo },
+  { name: "Qorum Watches", industry: "Luxury Watches", url: "https://www.qorumindia.com", logo: qorumLogo },
+  { name: "Anjali Gold", industry: "Mustard Oil", url: "https://www.anjaligoldagro.com", logo: anjaliLogo },
+  { name: "Booster Water", industry: "FMCG / Beverages", url: "https://boosterwater.com", logo: boosterLogo },
+  { name: "Panorama Studios", industry: "Film Production", url: "https://panoramastudios.in", logo: panoramaLogo },
+  { name: "Soham Rockstar Entertainment", industry: "Entertainment", url: "https://sohamrockstar.com", logo: sohamLogo },
+  { name: "Platinum Music", industry: "Music", url: undefined, logo: undefined },
 ] as const;
 
 const founders = [
@@ -499,7 +508,7 @@ function ApexHome() {
               </p>
             </div>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-5">
               {clients.map((client) => {
                 const linkable = Boolean(client.url);
                 const Card = linkable ? "a" : "div";
@@ -514,21 +523,35 @@ function ApexHome() {
                           "aria-label": `Visit ${client.name} website`,
                         }
                       : {})}
-                    className={`glass-card tile-hover rounded-2xl p-6 group block ${linkable ? "cursor-pointer" : "cursor-default"}`}
+                    className={`group flex flex-col ${linkable ? "cursor-pointer" : "cursor-default"}`}
                   >
-                    <div className="flex items-start justify-between mb-3 gap-2">
-                      <span className="inline-block px-2.5 py-0.5 rounded-full bg-gold/10 text-gold text-[10px] uppercase tracking-widest leading-relaxed">
-                        {client.industry}
-                      </span>
+                    <div className="tile-hover relative flex items-center justify-center h-28 rounded-2xl bg-white px-6 py-5 shadow-card overflow-hidden">
+                      {client.logo ? (
+                        <img
+                          src={client.logo}
+                          alt={`${client.name} logo`}
+                          loading="lazy"
+                          className="max-h-full max-w-full object-contain"
+                        />
+                      ) : (
+                        <span className="font-display text-base tracking-wide text-navy-deep text-center leading-tight">
+                          {client.name.toUpperCase()}
+                        </span>
+                      )}
                       {linkable && (
                         <ArrowUpRight
-                          size={16}
-                          className="text-muted-foreground/40 group-hover:text-gold group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all shrink-0 mt-1"
+                          size={15}
+                          className="absolute top-2.5 right-2.5 text-navy-deep/25 group-hover:text-primary transition-colors"
                         />
                       )}
                     </div>
-                    <div className="font-display text-xl md:text-2xl tracking-wide leading-tight">
-                      {client.name.toUpperCase()}
+                    <div className="mt-3 text-center px-1">
+                      <div className="font-display text-sm md:text-base tracking-wide leading-tight">
+                        {client.name.toUpperCase()}
+                      </div>
+                      <div className="text-[10px] uppercase tracking-widest text-muted-foreground mt-1">
+                        {client.industry}
+                      </div>
                     </div>
                   </Card>
                 );
