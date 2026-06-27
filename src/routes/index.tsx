@@ -39,6 +39,9 @@ import lionsLogo from "@/assets/lions-logo.png";
 import wtlLogo from "@/assets/wtl-logo.jpg";
 import wplLogo from "@/assets/wpl-logo.jpg";
 import sglLogo from "@/assets/sgl-logo.jpg";
+import arjunPhoto from "@/assets/arjun-sharma.jpg";
+import ritviPhoto from "@/assets/ritvi-ojha.jpg";
+import aaryanPhoto from "@/assets/aaryan-saxena.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -214,6 +217,27 @@ const clients = [
   { name: "Platinum Music", industry: "Music" },
 ];
 
+const founders = [
+  {
+    photo: arjunPhoto,
+    name: "Arjun Sharma",
+    role: "Team & Operations",
+    desc: "Builds the team, internal systems, and operational structure while actively contributing to the creative process. Ensures the right people and processes are in place to turn ideas into consistent output.",
+  },
+  {
+    photo: ritviPhoto,
+    name: "Ritvi Ojha",
+    role: "Brand & Creative",
+    desc: "Leads brand direction, design systems, and overall creative output while being deeply involved in execution. Collaborates across all functions to ensure every output reflects a unified vision and standard.",
+  },
+  {
+    photo: aaryanPhoto,
+    name: "Aaryan Saxena",
+    role: "Sales & Growth",
+    desc: "Drives sales, partnerships, and strategic growth while staying actively involved in the creative process. Works closely with the team to align client opportunities with strong execution and brand direction.",
+  },
+];
+
 const stats = [
   { value: "$15.46M", label: "Sponsorship Value Managed" },
   { value: "5M+", label: "Global Audience Reach" },
@@ -226,6 +250,7 @@ const navLinks = [
   { href: "#clients", label: "Clients" },
   { href: "#sponsorship", label: "Sponsorships" },
   { href: "#why", label: "How We Work" },
+  { href: "#founders", label: "Founders" },
   { href: "#contact", label: "Contact" },
 ];
 
@@ -614,6 +639,45 @@ function ApexHome() {
                 <div className="font-display text-7xl text-gold/15 leading-none mb-6 select-none">{p.step}</div>
                 <h3 className="font-display text-2xl tracking-wide mb-3">{p.title.toUpperCase()}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FOUNDERS */}
+      <section id="founders" className="py-28 relative">
+        <div className="container mx-auto px-6">
+          <div className="max-w-2xl mb-16">
+            <div className="text-gold text-xs uppercase tracking-[0.3em] mb-4">Meet The Founders</div>
+            <h2 className="font-display text-5xl md:text-6xl leading-none mb-4">
+              THE TEAM BEHIND <span className="text-gradient-gold">APEX</span>.
+            </h2>
+            <p className="text-muted-foreground text-lg">
+              Three operators, one playbook — building, designing and selling
+              the brands that move the game forward.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {founders.map((f) => (
+              <div
+                key={f.name}
+                className="glass-card tile-hover rounded-2xl overflow-hidden group flex flex-col"
+              >
+                <div className="relative aspect-[4/5] overflow-hidden">
+                  <img
+                    src={f.photo}
+                    alt={f.name}
+                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+                </div>
+                <div className="p-7 flex flex-col flex-1">
+                  <div className="text-gold text-[10px] uppercase tracking-[0.3em] mb-2">{f.role}</div>
+                  <h3 className="font-display text-2xl tracking-wide mb-3">{f.name.toUpperCase()}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
+                </div>
               </div>
             ))}
           </div>
