@@ -7,7 +7,7 @@ const COLOR_REVEAL_START = 0.82;
 const COLOR_REVEAL_END = 0.95;
 
 const framePath = (i: number) =>
-  `/qorum/frames/f_${String(i + 1).padStart(3, "0")}.webp`;
+  `${import.meta.env.BASE_URL}qorum/frames/f_${String(i + 1).padStart(3, "0")}.webp`;
 
 type Chapter = {
   start: number;
