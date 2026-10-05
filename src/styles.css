@@ -34,6 +34,8 @@
   --color-navy-deep: var(--navy-deep);
   --font-display: "Inter", system-ui, sans-serif;
   --font-sans: "Inter", system-ui, sans-serif;
+  --font-q-serif: "Instrument Serif", "Times New Roman", serif;
+  --font-q-mono: "JetBrains Mono", ui-monospace, monospace;
 }
 
 :root {
@@ -165,4 +167,44 @@
     to { opacity: 1; transform: translateY(0); }
   }
   .animate-fade-up { animation: fade-up 0.7s ease-out both; }
+
+  /* Qorum landing: infinite marquee + outlined display type */
+  @keyframes q-marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .q-marquee { animation: q-marquee 38s linear infinite; }
+  .q-outline {
+    color: transparent;
+    -webkit-text-stroke: 1px oklch(1 0 0 / 0.35);
+  }
+  @keyframes q-cue {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(200%); }
+  }
+  /* Feather the vertical film panel into the studio backdrop (desktop) */
+  @media (min-width: 768px) {
+    .q-feather {
+      -webkit-mask-image:
+        linear-gradient(to right, transparent, #000 24%, #000 76%, transparent),
+        linear-gradient(to bottom, transparent, #000 10%, #000 78%, transparent);
+      -webkit-mask-composite: source-in;
+      mask-image:
+        linear-gradient(to right, transparent, #000 24%, #000 76%, transparent),
+        linear-gradient(to bottom, transparent, #000 10%, #000 78%, transparent);
+      mask-composite: intersect;
+    }
+  }
+  /* Thin luminous ring, after the studio-lit dial in the reference */
+  .q-ring {
+    border-radius: 9999px;
+    border: 1px solid rgb(255 255 255 / 0.55);
+    box-shadow:
+      0 0 24px rgb(255 255 255 / 0.18),
+      inset 0 0 24px rgb(255 255 255 / 0.12),
+      0 0 120px rgb(200 215 230 / 0.08);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .q-marquee { animation: none; }
+  }
 }
