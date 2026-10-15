@@ -1,0 +1,150 @@
+@font-face {
+  font-family: 'Bricolage';
+  src: url('/fonts/bricolage-latin.woff2') format('woff2-variations');
+  font-weight: 200 800;
+  font-stretch: 75% 100%;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+FEFF;
+}
+@font-face {
+  font-family: 'Bricolage';
+  src: url('/fonts/bricolage-symbols.woff2') format('woff2-variations');
+  font-weight: 200 800;
+  font-stretch: 75% 100%;
+  font-display: swap;
+  unicode-range: U+20B9;
+}
+@font-face {
+  font-family: 'Inter Tight';
+  src: url('/fonts/inter-tight-latin.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+FEFF;
+}
+@font-face {
+  font-family: 'Inter Tight';
+  src: url('/fonts/inter-tight-symbols.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+20B9;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --nav-h: 72px;
+    --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    color-scheme: light;
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  .lenis.lenis-stopped { overflow: hidden; }
+  body {
+    @apply bg-cream font-body text-ink antialiased;
+    overflow-x: clip;
+  }
+  ::selection { @apply bg-turmeric text-ink; }
+  :focus-visible { outline: 3px solid #1C1A17; outline-offset: 3px; border-radius: 6px; }
+  .on-dark :focus-visible { outline-color: #F5EDE0; }
+  img { max-width: 100%; }
+}
+
+@layer components {
+  .skip-link {
+    position: absolute; left: 12px; top: -60px; z-index: 100;
+    @apply rounded-full bg-ink px-5 py-3 font-semibold text-cream;
+  }
+  .skip-link:focus { top: 12px; }
+
+  /* Display type: heavy, condensed, tight */
+  .display {
+    font-family: 'Bricolage', 'Arial Narrow', Impact, sans-serif;
+    font-weight: 800;
+    font-stretch: 75%;
+    font-variation-settings: 'opsz' 96;
+    line-height: 0.84;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+  }
+  .display-soft {
+    font-family: 'Bricolage', 'Arial Narrow', Impact, sans-serif;
+    font-weight: 800;
+    font-stretch: 80%;
+    line-height: 0.92;
+    letter-spacing: -0.015em;
+  }
+  .eyebrow {
+    @apply font-body text-[11px] font-bold uppercase tracking-[0.18em];
+  }
+
+  .btn {
+    @apply inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full px-6 font-body text-[15px] font-bold leading-none transition-[transform,background-color,color,box-shadow] duration-300 ease-expo;
+  }
+  .btn:active { transform: scale(0.97); }
+  .btn-primary { @apply bg-ink text-cream hover:-translate-y-0.5 hover:shadow-[0_10px_0_-4px_rgba(28,26,23,0.25)]; }
+  .btn-ghost { @apply border-2 border-current bg-transparent hover:bg-ink hover:text-cream; }
+  .btn-cream { @apply bg-cream text-ink hover:-translate-y-0.5; }
+  .btn-turmeric { @apply bg-turmeric text-ink hover:-translate-y-0.5; }
+  .btn[disabled] { @apply cursor-not-allowed opacity-50 hover:translate-y-0 hover:shadow-none; }
+
+  /* Things the client still has to supply */
+  .placeholder-tag {
+    @apply inline-flex items-center gap-1 rounded-md border border-dashed border-current px-1.5 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wider opacity-80;
+  }
+
+  /* Line-by-line reveal: wrap each line in .line > span */
+  .reveal .line { display: block; overflow: hidden; padding-bottom: 0.06em; margin-bottom: -0.06em; }
+  .reveal .line > span {
+    display: block;
+    transform: translate3d(0, 105%, 0);
+    transition: transform 0.9s var(--ease-expo);
+  }
+  .reveal.is-in .line > span { transform: none; }
+  .reveal.is-in .line:nth-child(2) > span { transition-delay: 0.08s; }
+  .reveal.is-in .line:nth-child(3) > span { transition-delay: 0.16s; }
+  .reveal.is-in .line:nth-child(4) > span { transition-delay: 0.24s; }
+
+  .fade-up { opacity: 0; transform: translate3d(0, 24px, 0); transition: opacity 0.8s var(--ease-expo), transform 0.8s var(--ease-expo); }
+  .fade-up.is-in { opacity: 1; transform: none; }
+
+  .no-scrollbar { scrollbar-width: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+
+  .grain-noise {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+@keyframes marquee { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-50%, 0, 0); } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes drop-in {
+  0% { transform: translate3d(0, -40px, 0) scale(0.6) rotate(-12deg); opacity: 0; }
+  60% { transform: translate3d(0, 4px, 0) scale(1.04) rotate(2deg); opacity: 1; }
+  100% { transform: none; opacity: 1; }
+}
+@keyframes pop { 0% { transform: scale(1); } 40% { transform: scale(1.25); } 100% { transform: scale(1); } }
+@keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+.animate-marquee { animation: marquee 38s linear infinite; }
+.animate-spin-slow { animation: spin 22s linear infinite; }
+.animate-drop-in { animation: drop-in 0.6s var(--ease-expo) both; }
+.animate-pop { animation: pop 0.45s var(--ease-expo); }
+.animate-live { animation: pulse-dot 2s ease-in-out infinite; }
+.marquee-wrap:hover .animate-marquee { animation-play-state: paused; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal .line > span, .fade-up { transform: none !important; opacity: 1 !important; }
+}

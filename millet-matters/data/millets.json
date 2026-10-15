@@ -1,0 +1,11 @@
+{
+  "_readme": "Content for 'Meet the millets'. Facts are agronomic/cultural only (no health claims). Client to re-verify before launch.",
+  "millets": [
+    { "key": "foxtail", "name": "Foxtail", "aka": "Kangni · Korra · Thinai", "fact": "One of the oldest farmed grains on earth, cultivated for roughly 8,000 years.", "image": "/assets/grains/foxtail.webp", "becomes": ["millet-instant-chilla-mix", "double-chocochip-millet-pancake-mix"] },
+    { "key": "jowar", "name": "Jowar", "aka": "Sorghum · Jonna · Cholam", "fact": "The world's fifth most-grown cereal, and the grain behind Maharashtra's bhakri.", "image": "/assets/grains/jowar.webp", "becomes": ["double-chocochip-millet-pancake-mix", "vanilla-chocochip-millet-pancake-mix", "jowar-cookies"] },
+    { "key": "little", "name": "Little Millet", "aka": "Kutki · Samai · Sama", "fact": "Domesticated in India. In Tamil kitchens it's samai, cooked like rice.", "image": "/assets/grains/little.webp", "becomes": ["millet-instant-dosa-mix"] },
+    { "key": "kodo", "name": "Kodo", "aka": "Kodra · Varagu · Arikelu", "fact": "Domesticated in India around 3,000 years ago. Grows where most crops give up.", "image": "/assets/grains/kodo.webp", "becomes": ["millet-instant-khichdi-mix"] },
+    { "key": "barnyard", "name": "Barnyard", "aka": "Sanwa · Samvat ke chawal · Kuthiraivali", "fact": "The vrat grain. Samvat ke chawal on fasting days? That's barnyard.", "image": "/assets/grains/barnyard.webp", "becomes": ["millet-instant-idli-mix", "barnyard-dryfruit-energy-bites"] },
+    { "key": "ragi", "name": "Ragi", "aka": "Finger millet · Nachni · Mandua", "fact": "Karnataka grows more ragi than any other Indian state.", "image": "/assets/grains/ragi.webp", "becomes": ["classic-sprouted-ragi-delight", "ragi-cookies", "ragi-chocolate-energy-bites"] }
+  ]
+}
