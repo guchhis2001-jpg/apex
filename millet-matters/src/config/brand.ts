@@ -2,7 +2,9 @@
 
 export const HERO_HANDLE = 'double-chocochip-millet-pancake-mix'; // keep the <link rel=preload> in index.html in sync
 
-export const LOGO_SRC = '/assets/brand/logo.svg';
+import { asset } from '@/lib/asset';
+
+export const LOGO_SRC = asset('assets/brand/logo.svg');
 
 /** Social proof. `null` renders a visible CLIENT TO SUPPLY marker instead of an invented number. */
 export const PROOF = {

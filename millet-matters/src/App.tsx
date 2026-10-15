@@ -35,6 +35,11 @@ export default function App() {
   return (
     <ClaimsProvider>
       <CartProvider>
+        {import.meta.env.VITE_PREVIEW === '1' && (
+          <p className="bg-turmeric px-4 py-1.5 text-center text-[12px] font-bold text-ink">
+            Concept preview · Not the official Millet Matters store · Checkout is disabled
+          </p>
+        )}
         <AnnouncementBar />
         <Nav onSearch={() => setSearch(true)} />
         <main id="main">

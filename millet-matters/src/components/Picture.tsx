@@ -1,4 +1,5 @@
 import type { ImgHTMLAttributes } from 'react';
+import { asset } from '@/lib/asset';
 
 type Props = Omit<ImgHTMLAttributes<HTMLImageElement>, 'src'> & {
   src: string;
@@ -7,7 +8,8 @@ type Props = Omit<ImgHTMLAttributes<HTMLImageElement>, 'src'> & {
 };
 
 /** <picture> with AVIF → WebP → original fallback. */
-export function Picture({ src, priority, alt = '', loading, decoding, ...rest }: Props) {
+export function Picture({ src: rawSrc, priority, alt = '', loading, decoding, ...rest }: Props) {
+  const src = asset(rawSrc);
   const isRaster = /\.(png|jpe?g)$/i.test(src);
   const base = src.replace(/\.(png|jpe?g)$/i, '');
   const img = (

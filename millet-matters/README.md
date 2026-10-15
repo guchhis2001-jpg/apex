@@ -7,6 +7,7 @@ npm install
 npm run dev          # http://localhost:5173
 npm run build        # typecheck → client build → SSR prerender → dist/
 npm run preview      # serve dist/ on http://localhost:4173
+npm run build:preview  # same, but with relative paths (works under any sub-path) and a "concept preview" banner
 ```
 
 Deploy `dist/` to any static host (Vercel, Netlify, Cloudflare Pages, Shopify CDN).

@@ -1,4 +1,5 @@
 import { shop } from '@/lib/products';
+import { asset } from '@/lib/asset';
 import { RevealLines } from '@/components/Reveal';
 import { PlaceholderTag } from '@/components/AddToCart';
 import { Instagram, Star } from '@/components/Icons';
@@ -51,7 +52,7 @@ export function Proof() {
               className="group relative block aspect-square overflow-hidden rounded-2xl"
               aria-label={`Instagram post ${i + 1} from @milletmatters_official (opens in a new tab)`}
             >
-              <img src={`/assets/ugc/ugc-${i + 1}.webp`} alt="" loading="lazy" width={600} height={600} className="h-full w-full object-cover transition-transform duration-700 ease-expo group-hover:scale-110" />
+              <img src={asset(`assets/ugc/ugc-${i + 1}.webp`)} alt="" loading="lazy" width={600} height={600} className="h-full w-full object-cover transition-transform duration-700 ease-expo group-hover:scale-110" />
               <span className="absolute inset-0 grid place-items-center bg-ink/0 text-cream opacity-0 transition-[opacity,background-color] duration-300 group-hover:bg-ink/40 group-hover:opacity-100">
                 <Instagram width={28} height={28} />
               </span>

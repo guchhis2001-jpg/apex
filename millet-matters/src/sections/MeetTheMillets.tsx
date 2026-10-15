@@ -1,5 +1,6 @@
 import { findProduct, isPurchasable, millets } from '@/lib/products';
 import { useCart } from '@/lib/cart';
+import { asset } from '@/lib/asset';
 import { RevealLines, FadeUp } from '@/components/Reveal';
 import { ArrowRight, Plus } from '@/components/Icons';
 
@@ -24,7 +25,7 @@ export function MeetTheMillets() {
               <article className="group flex h-full flex-col overflow-hidden rounded-[28px] bg-cream" aria-labelledby={`millet-${m.key}`}>
                 <div className="relative aspect-[5/4] overflow-hidden">
                   <img
-                    src={m.image}
+                    src={asset(m.image)}
                     alt={`Macro photo of ${m.name} grains`}
                     loading="lazy"
                     decoding="async"

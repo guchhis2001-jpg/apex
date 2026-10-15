@@ -11,7 +11,8 @@
     "assets:placeholders": "node scripts/generate-placeholders.mjs",
     "assets:optimize": "node scripts/optimize-assets.mjs",
     "contrast": "node scripts/check-contrast.mjs",
-    "build:spa": "vite build"
+    "build:spa": "vite build",
+    "build:preview": "PREVIEW=1 vite build && PREVIEW=1 vite build --ssr src/entry-server.tsx --outDir dist-ssr && node scripts/prerender.mjs"
   },
   "dependencies": {
     "@fontsource-variable/bricolage-grotesque": "^5.3.0",

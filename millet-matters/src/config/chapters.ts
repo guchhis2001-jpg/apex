@@ -1,4 +1,5 @@
 import theme from './theme.json';
+import { asset } from '@/lib/asset';
 
 /**
  * The four Transformation chapters.
@@ -58,4 +59,4 @@ export const CHAPTERS: Chapter[] = [
   },
 ];
 
-export const frameUrl = (ch: Chapter, i: number) => `/assets/sequences/${ch.id}/${String(i + 1).padStart(4, '0')}.${ch.ext}`;
+export const frameUrl = (ch: Chapter, i: number) => asset(`assets/sequences/${ch.id}/${String(i + 1).padStart(4, '0')}.${ch.ext}`);
